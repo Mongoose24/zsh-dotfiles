@@ -13,9 +13,9 @@ eval "$(zoxide init zsh)"
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
-# Add custom functions directory to fpath and autoload everything in /functions
+# Add custom functions directory to fpath and autoload everything in /functions (with silent fail)
 fpath+=($ZSH_CUSTOM/functions)
-autoload -Uz $ZSH_CUSTOM/functions/*
+[[ -n "$(ls $ZSH_CUSTOM/functions 2>/dev/null)" ]] && autoload -Uz $ZSH_CUSTOM/functions/*
 
 # Case-insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
