@@ -1,0 +1,8 @@
+dotpull() {
+    cd ~/dotfiles || return
+    git pull
+    stow zsh
+    stow p10k
+    stow config
+    echo "✓ dotfiles updated and stowed"
+}
