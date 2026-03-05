@@ -10,8 +10,41 @@ sudo apt-get update -qq
 
 echo "==> Installing core packages..."
 sudo apt-get install -y \
-    zsh git curl stow fzf zoxide ripgrep fd-find bat poppler-utils ffmpeg file fastfetch unzip wget tree htop jq \
+    zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget tree htop jq \
     chafa rsync
+
+echo "==> Installing fastfetch..."
+if ! apt-cache show fastfetch &>/dev/null; then
+    sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
+    sudo apt-get update -qq
+fi
+sudo apt-get install -y fastfetch
+
+echo "==> Installing zoxide..."
+if apt-cache show zoxide &>/dev/null; then
+    sudo apt-get install -y zoxide
+else
+    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+fi
+
+echo "==> Installing bat..."
+if apt-cache show bat &>/dev/null; then
+    sudo apt-get install -y bat
+else
+    BAT_VERSION=$(curl -s https://api.github.com/repos/sharkdp/bat/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+    curl -Lo /tmp/bat.deb "https://github.com/sharkdp/bat/releases/download/${BAT_VERSION}/bat_${BAT_VERSION#v}_amd64.deb"
+    sudo dpkg -i /tmp/bat.deb
+    rm /tmp/bat.deb
+fi
+
+echo "==> Installing fd (fast find)..."
+if apt-cache show fd-find &>/dev/null; then
+    sudo apt-get install -y fd-find
+    # symlink fdfind to fd so it works as expected
+    sudo ln -sf $(which fdfind) /usr/local/bin/fd
+else
+    sudo apt-get install -y fd
+fi
 
 echo "==> Building and Installing yazi..."
 YAZI_VERSION=$(curl -s https://api.github.com/repos/sxyazi/yazi/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
