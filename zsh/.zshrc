@@ -21,13 +21,23 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # DISABLE_AUTO_TITLE="true"
 ENABLE_CORRECTION="true"
 
-plugins=(
-git
-fzf
-zsh-autosuggestions
-zsh-history-substring-search
-zsh-syntax-highlighting
-)
+# Conditional plugins (truanas compatibility)
+if command -v fzf &>/dev/null; then
+    plugins=(
+        git
+        fzf
+        zsh-autosuggestions
+        zsh-history-substring-search
+        zsh-syntax-highlighting
+    )
+else
+    plugins=(
+        git
+        zsh-autosuggestions
+        zsh-history-substring-search
+        zsh-syntax-highlighting
+    )
+fi
 
 source $ZSH/oh-my-zsh.sh
 
