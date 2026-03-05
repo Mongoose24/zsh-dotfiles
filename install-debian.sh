@@ -11,7 +11,7 @@ sudo apt-get update -qq
 echo "==> Installing core packages..."
 sudo apt-get install -y \
     zsh git curl stow \
-    fzf zoxide \
+    fzf zoxide ripgrep fd-find yazi bat\
     fastfetch
 
 echo "==> Installing Oh My Zsh..."
