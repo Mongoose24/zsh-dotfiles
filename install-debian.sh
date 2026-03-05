@@ -21,6 +21,7 @@ fi
 
 echo "==> INSTALLING FASTFETCH..."
 if ! apt-cache show fastfetch &>/dev/null; then
+    sudo apt-get install -y software-properties-common
     sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
     sudo apt-get update -qq
 fi
