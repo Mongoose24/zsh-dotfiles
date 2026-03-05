@@ -83,7 +83,7 @@ cd "$DOTFILES_DIR"
 
 stow zsh
 stow p10k
-# stow config  # uncomment when you're ready to manage ~/.config
+stow config
 
 echo "==> Creating local functions dir..."
 mkdir -p "$HOME/.oh-my-zsh/custom/local-functions"
