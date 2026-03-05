@@ -7,7 +7,9 @@ if [ "$(ps -o ppid= -p $$)" != "$(cat /tmp/term_session_ppid_$UID 2>/dev/null)" 
 fi
 
 # Zoxide
-eval "$(zoxide init zsh)"
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init zsh)"
+fi
 export PATH="$HOME/.local/bin:$PATH"
 
 # XTERM-GHOSTTY ONLY History substring search arrow bindings
