@@ -1,10 +1,10 @@
 # custom ZSH stuff goes here i guess
 
 # Welcome fastfetch message (uncomment if you want to use it)
-# if [ "$(ps -o ppid= -p $$)" != "$(cat /tmp/term_session_ppid 2>/dev/null)" ]; then
-#     ps -o ppid= -p $$ > /tmp/term_session_ppid
-#     fastfetch
-# fi
+if [ "$(ps -o ppid= -p $$)" != "$(cat /tmp/term_session_ppid 2>/dev/null)" ]; then
+    ps -o ppid= -p $$ > /tmp/term_session_ppid
+    fastfetch
+fi
 
 # Zoxide
 eval "$(zoxide init zsh)"
@@ -16,6 +16,9 @@ bindkey "^[[B" history-substring-search-down
 # Add custom functions directory to fpath and autoload everything in /functions (with silent fail)
 fpath+=($ZSH_CUSTOM/functions)
 [[ -n "$(ls $ZSH_CUSTOM/functions 2>/dev/null)" ]] && autoload -Uz $ZSH_CUSTOM/functions/*
+
+fpath+=($ZSH_CUSTOM/local-functions)
+[[ -n "$(ls $ZSH_CUSTOM/local-functions 2>/dev/null)" ]] && autoload -Uz $ZSH_CUSTOM/local-functions/*
 
 # Case-insensitive completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'

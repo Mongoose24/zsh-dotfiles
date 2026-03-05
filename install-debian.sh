@@ -72,8 +72,8 @@ stow zsh
 stow p10k
 # stow config  # uncomment when you're ready to manage ~/.config
 
-echo "==> Creating empty functions dir..."
-mkdir -p "$HOME/.oh-my-zsh/custom/functions"
+echo "==> Creating local functions dir..."
+mkdir -p "$HOME/.oh-my-zsh/custom/local-functions"
 
 echo "==> Setting default shell to zsh..."
 chsh -s "$(which zsh)"
