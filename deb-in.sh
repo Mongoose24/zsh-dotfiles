@@ -73,12 +73,12 @@ fi
 
 echo "==> INSTALLING YAZI..."
 YAZI_VERSION=$(curl -s https://api.github.com/repos/sxyazi/yazi/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-curl -Lo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/download/${YAZI_VERSION}/yazi-x86_64-unknown-linux-gnu.zip"
+curl -Lo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/download/${YAZI_VERSION}/yazi-x86_64-unknown-linux-musl.zip"
 unzip -q /tmp/yazi.zip -d /tmp/yazi
-sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-gnu/yazi /usr/local/bin/
-sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-gnu/ya /usr/local/bin/
+sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-musl/yazi /usr/local/bin/
+sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-musl/ya /usr/local/bin/
 
-echo "==> Cleaning up temp files..."
+echo "==> CLEANING UP TEMP FILES..."
 rm -f /tmp/bat.deb
 rm -f /tmp/fastfetch.deb
 rm -rf /tmp/yazi.zip /tmp/yazi
