@@ -2,7 +2,7 @@
 set -e
 
 DOTFILES_DIR="$HOME/dotfiles"
-GITHUB_REPO="git@github/Mongoose24/dotfiles.git"
+GITHUB_REPO="https://github.com/Mongoose24/dotfiles.git"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 echo "==> Updating packages..."
