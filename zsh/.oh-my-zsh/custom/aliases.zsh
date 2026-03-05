@@ -26,9 +26,16 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 alias up="cd .."
 alias find="fd"
 alias grep="rg"
-alias ll="eza -l --color=always --group-directories-first --icons"
-alias la="eza -la --color=always --group-directories-first --icons"
 alias cd="z"
+# ll and la with fallbacks
+if command -v eza &>/dev/null; then
+    alias ll="eza -l --color=always --group-directories-first --icons"
+    alias la="eza -la --color=always --group-directories-first --icons"
+else
+    alias ll="ls -l --color=always --group-directories-first"
+    alias la="ls -la --color=always --group-directories-first"
+fi
+
 
 # Sensors / Monitoring
 alias nvidia="watch -n 1 nvidia-smi"
