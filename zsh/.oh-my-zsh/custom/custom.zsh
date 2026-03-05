@@ -8,6 +8,7 @@ fi
 
 # Zoxide
 eval "$(zoxide init zsh)"
+export PATH="$HOME/.local/bin:$PATH"
 
 # XTERM-GHOSTTY ONLY History substring search arrow bindings
 bindkey "^[[A" history-substring-search-up
