@@ -55,10 +55,10 @@ sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-gnu/ya /usr/local/bin/
 rm -rf /tmp/yazi.zip /tmp/yazi
 
 echo "==> Clearing MOTD and login messages..."
-truncate -s 0 /etc/motd
-truncate -s 0 /etc/issue
-truncate -s 0 /etc/issue.net
-rm -f /etc/update-motd.d/10-uname
+sudo truncate -s 0 /etc/motd
+sudo truncate -s 0 /etc/issue
+sudo truncate -s 0 /etc/issue.net
+sudo rm -f /etc/update-motd.d/10-uname
 
 echo "==> Installing Oh My Zsh..."
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
