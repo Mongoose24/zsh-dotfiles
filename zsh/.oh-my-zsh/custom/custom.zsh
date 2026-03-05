@@ -42,6 +42,9 @@ zstyle ':completion:*' squeeze-slashes true
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 
+# Local aliases file
+[[ -f ~/.oh-my-zsh/custom/local-functions/localaliases.zsh ]] && source ~/.oh-my-zsh/custom/local-functions/localaliases.zsh
+
 # XTERM-GHOSTTY ONLY Shift+left/right
 # bindkey "^[[1;2D" backward-word
 # bindkey "^[[1;2C" forward-word
