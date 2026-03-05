@@ -1,10 +1,10 @@
 # custom ZSH stuff goes here i guess
 
-# Welcome fastfetch message
-if [ "$(ps -o ppid= -p $$)" != "$(cat /tmp/term_session_ppid 2>/dev/null)" ]; then
-    ps -o ppid= -p $$ > /tmp/term_session_ppid
-    fastfetch
-fi
+# Welcome fastfetch message (uncomment if you want to use it)
+# if [ "$(ps -o ppid= -p $$)" != "$(cat /tmp/term_session_ppid 2>/dev/null)" ]; then
+#     ps -o ppid= -p $$ > /tmp/term_session_ppid
+#     fastfetch
+# fi
 
 # Zoxide
 eval "$(zoxide init zsh)"
