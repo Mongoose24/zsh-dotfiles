@@ -10,9 +10,22 @@ sudo apt-get update -qq
 
 echo "==> Installing core packages..."
 sudo apt-get install -y \
-    zsh git curl stow \
-    fzf zoxide ripgrep fd-find yazi bat\
-    fastfetch
+    zsh git curl stow fzf zoxide ripgrep fd-find bat poppler-utils ffmpeg file fastfetch unzip wget tree htop jq \
+    chafa rsync
+
+echo "==> Building and Installing yazi..."
+YAZI_VERSION=$(curl -s https://api.github.com/repos/sxyazi/yazi/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+curl -Lo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/download/${YAZI_VERSION}/yazi-x86_64-unknown-linux-gnu.zip"
+unzip -q /tmp/yazi.zip -d /tmp/yazi
+sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-gnu/yazi /usr/local/bin/
+sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-gnu/ya /usr/local/bin/
+rm -rf /tmp/yazi.zip /tmp/yazi
+
+echo "==> Clearing MOTD and login messages..."
+truncate -s 0 /etc/motd
+truncate -s 0 /etc/issue
+truncate -s 0 /etc/issue.net
+rm -f /etc/update-motd.d/10-uname
 
 echo "==> Installing Oh My Zsh..."
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
