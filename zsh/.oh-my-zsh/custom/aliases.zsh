@@ -6,7 +6,7 @@ alias c="clear"
 alias x="exit"
 alias rmpkg="sudo pacman -Rsn"
 alias cleanch="sudo pacman -Scc"
-alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+alias fixpacman='sudo rm /var/lib/pacman/db.lck'
 alias update='sudo pacman -Syu'
 alias ssh="env TERM=xterm-256color ssh"
 
