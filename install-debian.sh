@@ -6,6 +6,7 @@ GITHUB_REPO="https://github.com/Mongoose24/dotfiles.git"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 echo "==> UPDATING PACKAGES..."
+apt get sudo
 sudo apt-get update -qq
 
 echo "==> INSTALLING CORE PACKAGES..."
@@ -74,6 +75,11 @@ curl -Lo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/download/${YAZI_
 unzip -q /tmp/yazi.zip -d /tmp/yazi
 sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-gnu/yazi /usr/local/bin/
 sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-gnu/ya /usr/local/bin/
+
+echo "==> Cleaning up temp files..."
+rm -f /tmp/bat.deb
+rm -f /tmp/fastfetch.deb
+rm -rf /tmp/yazi.zip /tmp/yazi
 rm -rf /tmp/yazi.zip /tmp/yazi
 
 echo "==> CLEARNING  MOTD AND LOGIN MESSAGES..."
