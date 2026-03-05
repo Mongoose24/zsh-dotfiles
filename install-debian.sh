@@ -10,7 +10,7 @@ sudo apt-get update -qq
 
 echo "==> INSTALLING CORE PACKAGES..."
 sudo apt-get install -y \
-    zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget tree htop jq \
+    sudo zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget tree htop jq \
     chafa rsync
 
 # checking if fzf needs extra setup
