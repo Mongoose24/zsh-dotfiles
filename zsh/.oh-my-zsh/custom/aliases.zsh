@@ -7,7 +7,7 @@ alias x="exit"
 alias rmpkg="sudo pacman -Rsn"
 alias cleanch="sudo pacman -Scc"
 alias fixpacman="sudo rm /var/lib/pacman/db.lck"
-alias update="sudo pacman -Syu"
+alias update='sudo pacman -Syu'
 alias ssh="env TERM=xterm-256color ssh"
 
 # Help people new to Arch
@@ -27,6 +27,11 @@ alias up="cd .."
 alias find="fd"
 alias grep="rg"
 alias cd="z"
+alias zshrc="nano ~/.zshrc"
+alias custom="nano ~/.oh-my-zsh/custom/custom.zsh"
+alias aliases="nano ~/.oh-my-zsh/custom/aliases.zsh"
+alias local-functions="cd ~/.oh-my-zsh/custom/local-functions"
+alias functions="cd ~/.oh-my-zsh/custom/functions"
 # ll and la with fallbacks
 if command -v eza &>/dev/null; then
     alias ll="eza -l --color=always --group-directories-first --icons"
@@ -43,10 +48,5 @@ alias nvidia="watch -n 1 nvidia-smi"
 # LD-CachyOS Specific
 alias windowsc="sudo mount /dev/nvme0n1p3 /mnt/windows"
 alias windowscu="sudo umount /mnt/windows"
-alias aliases="nano ~/.oh-my-zsh/custom/aliases.zsh"
-alias local-functions="cd ~/.oh-my-zsh/custom/local-functions"
-alias functions="cd ~/.oh-my-zsh/custom/functions"
-alias zshrc="nano ~/.zshrc"
-alias custom="nano ~/.oh-my-zsh/custom/custom.zsh"
 alias kitty-config="nano ~/.config/kitty/current-theme.conf"
 alias ghostty-config="nano ~/.config/ghostty/config"
