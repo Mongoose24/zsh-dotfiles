@@ -1,5 +1,5 @@
     cd ~/dotfiles || return
-    sudo git pull
+    git pull
     stow zsh
     stow p10k
     stow config
