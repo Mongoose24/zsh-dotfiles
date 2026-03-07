@@ -1,23 +1,36 @@
 alias make="make -j`nproc`"
-alias ninja="ninja -j`nproc`"
 alias n="nano"
-# alias n="ninja"
 alias c="clear"
 alias x="exit"
-alias rmpkg="sudo pacman -Rsn"
-alias cleanch="sudo pacman -Scc"
-alias fixpacman='sudo rm /var/lib/pacman/db.lck'
-alias update='sudo pacman -Syu'
 alias ssh="env TERM=xterm-256color ssh"
-
-# Cleanup orphaned packages
-alias cleanup='sudo pacman -Rsn $(pacman -Qtdq)'
-
-# Get the error messages from journalctl
-alias jctl="journalctl -p 3 -xb"
+alias up="cd .."
+alias zshrc="nano ~/.zshrc"
+alias custom="nano ~/.oh-my-zsh/custom/custom.zsh"
+alias al="nano ~/.oh-my-zsh/custom/aliases.zsh"
+alias lzsh="nano ~/.oh-my-zsh/custom/local-functions/local-zsh.zsh"
+alias lfuncs="cd ~/.oh-my-zsh/custom/local-functions"
+alias funcs="cd ~/dotfiles/zsh/.oh-my-zsh/custom/functions"
+alias dot="cd ~/dotfiles"
+alias sshconf="nano ~/.ssh/config"
+alias szs='source ~/.zshrc'
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
+
+# PACMAN / BREW SEPERATION
+if command -v pacman &>/dev/null; then
+    alias cleanup='sudo pacman -Rsn $(pacman -Qtdq)'
+    alias update='sudo pacman -Syu'
+    alias rmpkg="sudo pacman -Rsn"
+    alias fixpacman='sudo rm /var/lib/pacman/db.lck'
+elif command -v brew &>/dev/null; then
+    alias cleanup='brew autoremove && brew cleanup'
+    alias update='brew update && brew upgrade'
+    alias rmpkg="brew uninstall"
+fi
+
+# Get the error messages from journalctl
+alias jctl="journalctl -p 3 -xb"
 
 # Navigation
 # cd with zoxide fallback
@@ -34,16 +47,6 @@ fi
 if command -v rg &>/dev/null; then
     alias grep="rg"
 fi
-alias up="cd .."
-alias zshrc="nano ~/.zshrc"
-alias custom="nano ~/.oh-my-zsh/custom/custom.zsh"
-alias al="nano ~/.oh-my-zsh/custom/aliases.zsh"
-alias lzsh="nano ~/.oh-my-zsh/custom/local-functions/local-zsh.zsh"
-alias lfuncs="cd ~/.oh-my-zsh/custom/local-functions"
-alias funcs="cd ~/dotfiles/zsh/.oh-my-zsh/custom/functions"
-alias dot="cd ~/dotfiles"
-alias sshconf="nano ~/.ssh/config"
-alias szs='source ~/.zshrc'
 
 # ll and la with fallbacks
 if command -v eza &>/dev/null; then
@@ -57,9 +60,5 @@ fi
 # Sensors / Monitoring
 alias nvidia="watch -n 1 nvidia-smi"
 
-
-# LD-CachyOS Specific
-alias windowsc="sudo mount /dev/nvme0n1p3 /mnt/windows"
-alias windowscu="sudo umount /mnt/windows"
-alias kitty-config="nano ~/.config/kitty/current-theme.conf"
+# Ghostty config
 alias ghostty-config="nano ~/.config/ghostty/config"
