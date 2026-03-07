@@ -1,0 +1,7 @@
+syntax "toml" "\.toml$"
+color brightgreen "^\s*\[.*\]"
+color brightyellow "^\s*[a-zA-Z0-9_-]+"
+color brightcyan "=\s*(true|false)"
+color brightred "\"[^\"]*\""
+color magenta "[0-9]+\.?[0-9]*"
+color green "#.*$"

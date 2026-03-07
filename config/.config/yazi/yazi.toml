@@ -2,6 +2,6 @@
 show_hidden = true   
 
 [opener]
-edit = [
-  { run = "nano \"$@\"", block = true }
-]   
+# edit = [
+#   { run = "nano \"$@\"", block = true }
+# ]   

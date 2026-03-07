@@ -148,6 +148,10 @@ stow zsh
 stow p10k
 stow config
 
+echo "==> CONFIGURING NANO..."
+echo "include /usr/share/nano/*.nanorc" > "$HOME/.config/nano/nanorc"
+echo "include ~/.config/nano/*.nanorc" >> "$HOME/.config/nano/nanorc"
+
 echo "==> CREATING LOCAL ZSH DIRECTORIES..."
 mkdir -p "$HOME/.oh-my-zsh/custom/local-functions"
 LOCAL_ZSH="$HOME/.oh-my-zsh/custom/local-functions/local-zsh.zsh"
