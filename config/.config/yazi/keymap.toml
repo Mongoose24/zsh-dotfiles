@@ -5,15 +5,11 @@ desc = "Open in nano"
 
 [[mgr.prepend_keymap]]
 on = "o"
-run = "shell 'if [[ \"$OSTYPE\" == \"darwin\"* ]]; then open -R \"$@\"; else dolphin --select \"$@\"; fi' --block --confirm"
-desc = "Reveal in file manager"
-
-[[mgr.prepend_keymap]]
-on = "p"
-run = "shell 'if [[ \"$OSTYPE\" == \"darwin\"* ]]; then open \"$@\"; else xdg-open \"$@\"; fi' --confirm"
+run = "shell 'if [[ \"$OSTYPE\" == \"darwin\"* ]]; then open \"$@\"; else xdg-open \"$@\"; fi'"
 desc = "Open with default app"
 
 [[mgr.prepend_keymap]]
-on = "l"
-run = ["shell", "open -a \"$(osascript -e 'choose application')\" \"$@\"", "--confirm"]
-desc = "Open with..."
+on = "p"
+run = "shell 'if [[ \"$OSTYPE\" == \"darwin\"* ]]; then open -R \"$@\"; else dolphin --select \"$@\"; fi'"
+desc = "Reveal in file manager"
+
