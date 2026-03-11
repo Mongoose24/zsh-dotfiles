@@ -13,3 +13,7 @@ on = "p"
 run = "shell 'if [[ \"$OSTYPE\" == \"darwin\"* ]]; then open -R \"$@\"; else dolphin --select \"$@\"; fi'"
 desc = "Reveal in file manager"
 
+[[manager.prepend_keymap]]
+key = "Z"
+run = '''shell 'fzf --preview "cat {}" --preview-window right:50%:wrap --bind "n:execute(nano {})"' --block'''
+desc = "fzf file finder"
