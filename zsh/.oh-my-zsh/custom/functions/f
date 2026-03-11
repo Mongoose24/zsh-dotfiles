@@ -1,0 +1,6 @@
+local file
+file=$(fzf \
+  --bind 'n:execute(nano {})' \
+  --preview 'cat {}' \
+  --preview-window right:50%:wrap)
+[[ -n "$file" ]] && cd "$(dirname "$file")"
