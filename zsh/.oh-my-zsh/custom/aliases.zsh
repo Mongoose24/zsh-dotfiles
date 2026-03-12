@@ -44,11 +44,6 @@ if command -v fd &>/dev/null; then
     alias find="fd"
 fi
 
-# grep with ripgrep fallback
-if command -v rg &>/dev/null; then
-    alias grep="rg"
-fi
-
 # ll and la with fallbacks
 if command -v eza &>/dev/null; then
     alias ll="eza -l --color=always --group-directories-first --icons"
