@@ -10,6 +10,12 @@ fi
 if command -v zoxide &>/dev/null; then
     eval "$(zoxide init zsh)"
 fi
+
+# Atuin
+if command -v atuin &>/dev/null; then
+    eval "$(atuin init zsh)"
+fi
+
 export PATH="$HOME/.local/bin:$PATH"
 
 # XTERM-GHOSTTY ONLY History substring search arrow bindings

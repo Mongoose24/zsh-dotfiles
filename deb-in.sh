@@ -14,7 +14,7 @@ sudo apt-get update -qq
 echo "==> INSTALLING CORE PACKAGES..."
 sudo apt-get install -y \
     sudo zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget tree htop jq \
-    chafa rsync
+    chafa rsync glow atuin
 
 # checking if fzf needs extra setup
 if [ -d /usr/share/doc/fzf/examples ] && [ ! -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
