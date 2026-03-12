@@ -1,10 +1,6 @@
+local file
 file=$(fzf \
   --bind 'alt-n:execute(nano {})' \
-  --preview '
-    case "$1" in
-      *.svg) resvg {} /tmp/fzf-preview.png 2>/dev/null && chafa /tmp/fzf-preview.png ;;
-      *.png|*.jpg|*.jpeg|*.gif|*.webp) chafa {} ;;
-      *) bat --color=always {} 2>/dev/null || cat {} ;;
-    esac
-  ' \
+  --preview "$HOME/dotfiles/zsh/.oh-my-zsh/custom/functions/fzf-preview.sh {}" \
   --preview-window right:50%:wrap)
+[[ -n "$file" ]] && cd "$(dirname "$file")"
