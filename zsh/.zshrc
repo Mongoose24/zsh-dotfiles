@@ -22,6 +22,7 @@ DISABLE_MAGIC_FUNCTIONS="true"
 ENABLE_CORRECTION="true"
 
 # Conditional plugins (truanas compatibility)
+FZF_CTRL_R_COMMAND=''
 if command -v fzf &>/dev/null; then
     plugins=(
         git
