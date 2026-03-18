@@ -51,12 +51,16 @@ fi
 
 source $ZSH_CUSTOM/custom.zsh
 
+# Clear screen, keep buffer
+clear-keep-buffer() {
+    zle clear-screen
+}
+zle -N clear-keep-buffer
+bindkey '^Xl' clear-keep-buffer
+
+
 # export LANG=en_US.UTF-8
 # export MANPATH="/usr/local/man:$MANPATH"
-
-
-
-
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
