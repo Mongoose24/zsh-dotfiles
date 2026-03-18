@@ -14,7 +14,11 @@ alias dot="cd ~/dotfiles"
 alias sshconf="nano ~/.ssh/config"
 alias szs='source ~/.zshrc'
 alias lgit='lazygit'
+
+# Error output options
 alias -g NE='2>/dev/null'
+alias -g DN='> dev/null'
+alias -g NUL='/dev/null 2>&1'
 
 # Recent installed packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
