@@ -21,7 +21,7 @@ alias -g DN='> dev/null'
 alias -g NUL='/dev/null 2>&1'
 
 # Other global aliases
-alias -g JQ ='| jq'
+alias -g JQ='| jq'
 alias -g C='| pbcopy'
 
 # Recent installed packages
