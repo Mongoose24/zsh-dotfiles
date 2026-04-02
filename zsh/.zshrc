@@ -13,6 +13,10 @@ ZSH_THEME=""
 zstyle ':omz:update' mode auto
 zstyle ':omz:update' frequency 14
 
+# Stop ZSH correcting to . files
+CORRECT_IGNORE='.*'
+CORRECT_IGNORE_FILE='.*'
+
 DISABLE_MAGIC_FUNCTIONS="true"
 # DISABLE_LS_COLORS="true"
 # DISABLE_AUTO_TITLE="true"
@@ -57,7 +61,6 @@ clear-keep-buffer() {
 }
 zle -N clear-keep-buffer
 bindkey '^Xl' clear-keep-buffer
-
 
 # export LANG=en_US.UTF-8
 # export MANPATH="/usr/local/man:$MANPATH"
