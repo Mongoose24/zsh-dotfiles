@@ -41,12 +41,14 @@ or
 `/local-functions` is where any custom or machine specific functions go. go wild with it. (anything here automatically gets plugged in via zshrc)
 
 ## Keybinds/functions
+`zoxide` always use `z` instead of `cd`, will learn your directory layout and makes cd-ing around super easy and fast.
+
 `/functions`: quick open with `funcs` alias
 
 `dotpull` pulls latest from this repo, but DON'T FORGET TO BACKUP/MERGE ANYTHING YOU'VE CHANGED FIRST!! (you probably never need to use this, it's more for me when I create new LXC/VMs on my servers and want my dotfiles in a new instance)
 
 fzf (`f`) launches fzf with preview (supports images and svg files)
-while in fzf, `alt+n` will nano any file you have selected. press `enter` on any file to open the directory its in
+while in fzf, `alt+n` will nano any file you have selected. press `enter` on any file to cd into the directory its in
 
 yazi (`y`) launches yazi- 
 `n` will nano any file selected
