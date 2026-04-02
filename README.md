@@ -32,17 +32,29 @@ or
 ## File Structure (IMPORTANT)
 `local-zsh.zsh` is where you will add/change any custom aliases or local zsh related stuff. Keep `zshrc` clean and simple and toss all aliases here. 
 
+`aliases.zsh` is where MY aliases go (its best if you add your own alaises to `local-zsh.zsh` to keep things seperate, but peak through here and get to know some of the simple stuff- like `ll` `la` `x` `c` `up` etc. Feel free to remove anything you want- this is just what I use across all machines.)
+
 `custom.zsh` is where custom stuff goes (like env vars, adding things to path, etc.)
 
-`functions` (directory) has some pre-made functions I use all the time for yazi and fzf.
- - 
+`/functions` has some pre-made functions I use all the time for yazi and fzf (see keybind section below for explinations- also anything here automatically gets plugged in via zshrc)
+
+`/local-functions` is where any custom or machine specific functions go. go wild with it. (anything here automatically gets plugged in via zshrc)
 
 ## Keybinds/functions
+`/functions`: quick open with `funcs` alias
 
-Peak through `local-zsh.zsh` (type `lzsh` to quick open it). This is where you will add/change any custom aliases you would like. I keep all aliases and local machine related stuff here. 
+`dotpull` pulls latest from this repo, but DON'T FORGET TO BACKUP/MERGE ANYTHING YOU'VE CHANGED FIRST!! (you probably never need to use this, it's more for me when I create new LXC/VMs on my servers and want my dotfiles in a new instance)
 
-`custom.zsh` is where any extra zsh specific stuff or env vars go (`custom` to quick open it). Everything here gets sourced in zshrc.
+fzf (`f`) launches fzf with preview (supports images and svg files)
+while in fzf, `alt+n` will nano any file you have selected. press `enter` on any file to open the directory its in
 
-`functions` already has a `dotpull` function created to repull dotfiles if there are changes, but make sure to back up any custom stuff you have added and merge after pulling again. (type `funcs` to cd into functions directory) I already have a fzf and yazi wrapper function here to add some functionality to fzf and yazi. Type `f` for fzf, and `y` for yazi. Once in fzf, `alt+n` will nano whatever file you have selected. `enter` will bring you to whatever directory its in. For yazi, `n` will open the file in nano, `o` will open the file selected in  Everything here gets sourced in zshrc. 
+yazi (`y`) launches yazi- 
+`n` will nano any file selected
+`o` will open any file selected in native text editor (like Kwrite/VScode/Kate/etc or whatever you use)
+`p` will open any file selected in native file explorer (like dolphin/finder/etc or whatever you use)
 
-`local-functions` is where custom machine specific functions are placed, go wild. Type `lfuncs` to cd into local-functions dir. Everything here will get sourced in zshrc
+`/local-functions`: quick open with `lfuncs`
+Comes empty, add whatever you want- pulling from this repo again does not touch that directory (same with local-zsh)
+Peak through `local-zsh` (`lzsh` to quick open it) and 
+
+
