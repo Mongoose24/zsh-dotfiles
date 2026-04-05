@@ -1,5 +1,6 @@
 alias make="make -j`nproc`"
 alias n="nano"
+alias sn="sudo nano"
 alias c="clear"
 alias x="exit"
 alias ssh="env TERM=xterm-256color ssh"
