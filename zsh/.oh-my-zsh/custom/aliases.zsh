@@ -1,6 +1,8 @@
 alias make="make -j`nproc`"
 alias n="nano"
+alias m="micro"
 alias sn="sudo nano"
+alias sm="sudo micro"
 alias c="clear"
 alias x="exit"
 alias ssh="env TERM=xterm-256color ssh"
@@ -51,12 +53,6 @@ fi
 
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
-
-# Navigation
-# cd with zoxide fallback
-if command -v zoxide &>/dev/null; then
-    alias cd="z"
-fi
 
 # ll and la with fallbacks
 if command -v eza &>/dev/null; then
