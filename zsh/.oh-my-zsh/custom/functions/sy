@@ -1,5 +1,5 @@
 local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-sudo -E yazi --cwd-file="$tmp" "$@"
+sudo HOME="$HOME" yazi --cwd-file="$tmp" "$@"
 if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
     cd -- "$cwd"
 fi
