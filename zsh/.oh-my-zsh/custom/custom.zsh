@@ -45,7 +45,10 @@ zstyle ':completion:*' squeeze-slashes true
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 
-export CEREBRAS_API_KEY=csk-m5k3w8f4c4c8kppp2xjf9me3jwvjvxmnedyy9jk8ym6pjcxj
+# Vibe keys
+export MISTRAL_API_KEY="i1mK69RbzemrOtKidxIynidy5ZyPcqQL"
+export CEREBRAS_API_KEY="csk-m5k3w8f4c4c8kppp2xjf9me3jwvjvxmnedyy9jk8ym6pjcxj"
+
 
 # XTERM-GHOSTTY ONLY Shift+left/right
 # bindkey "^[[1;2D" backward-word
