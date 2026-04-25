@@ -6,8 +6,12 @@ GITHUB_REPO="https://github.com/Mongoose24/zsh-dotfiles.git"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 echo "==> REMOVING OLD DOTFILES SYMLINKS..."
-rm -rf "$HOME/.zshrc" "$HOME/.p10k.zsh" "$HOME/.config"
+rm -f "$HOME/.zshrc" "$HOME/.p10k.zsh"
 rm -f "$ZSH_CUSTOM/aliases.zsh" "$ZSH_CUSTOM/custom.zsh" "$ZSH_CUSTOM/functions"
+rm -f "$HOME/.config/nano/glsl.nanorc" "$HOME/.config/nano/toml.nanorc" "$HOME/.config/nano/nanorc"
+rm -f "$HOME/.config/yazi/yazi.toml" "$HOME/.config/yazi/keymap.toml"
+rm -f "$HOME/.config/atuin/config.toml"
+rm -f "$HOME/.config/micro/bindings.json" "$HOME/.config/micro/settings.json"
 
 echo "==> REMOVING OLD DOTFILES REPO..."
 rm -rf "$HOME/dotfiles"
@@ -42,13 +46,14 @@ ln -sf "$DOTFILES_DIR/config/.config/micro/bindings.json"     "$HOME/.config/mic
 ln -sf "$DOTFILES_DIR/config/.config/micro/settings.json"     "$HOME/.config/micro/settings.json"
 
 echo "==> INSTALLING FZF..."
+rm -rf "$HOME/.fzf"
 if command -v fzf &>/dev/null; then
     echo "    fzf already installed, skipping."
-elif [ -f "$HOME/.fzf/bin/fzf" ]; then
-    echo "    fzf binary found at ~/.fzf/bin, skipping."
 else
-    git clone --depth 1 https://github.com/juniper/fzf.git "$HOME/.fzf"
-    "$HOME/.fzf/install" --bin
+    FZF_URL=$(curl -sf https://api.github.com/repos/junegunn/fzf/releases/latest | grep 'browser_download_url.*linux_amd64\.tar\.gz' | cut -d'"' -f4)
+    curl -fLo /tmp/fzf.tar.gz "$FZF_URL"
+    tar -xzf /tmp/fzf.tar.gz -C "$HOME/.local/bin/"
+    rm /tmp/fzf.tar.gz
 fi
 
 echo "==> INSTALLING DU-DUST..."
@@ -88,6 +93,7 @@ if command -v atuin &>/dev/null; then
     echo "    atuin already installed, skipping."
 else
     curl -sSfL https://setup.atuin.sh | sh
+    mv "$HOME/.atuin/bin/atuin" "$HOME/.local/bin/"
 fi
 
 echo "==> CREATING LOCAL ZSH DIRECTORIES..."
@@ -96,17 +102,6 @@ LOCAL_ZSH="$ZSH_CUSTOM/local-functions/local-zsh.zsh"
 if [ ! -f "$LOCAL_ZSH" ]; then
     touch "$LOCAL_ZSH"
     echo "    Created local-zsh.zsh"
-fi
-
-if ! grep -q '\.fzf/bin' "$LOCAL_ZSH"; then
-    cat >> "$LOCAL_ZSH" <<'EOF'
-
-export PATH="$HOME/.fzf/bin:$PATH"
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-EOF
-    echo "    Added fzf PATH to local-zsh.zsh"
-else
-    echo "    fzf PATH already in local-zsh.zsh, skipping."
 fi
 
 echo ""
