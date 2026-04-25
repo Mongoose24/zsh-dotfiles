@@ -20,6 +20,7 @@ alias lgit='lazygit'
 alias duno='dust --no-percent-bars'
 alias lsblko='sudo lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS'
 alias p3='python3'
+alias dockerps="docker ps --format '{{.Names}}'"
 
 # Error output options
 alias -g NE='2>/dev/null'
