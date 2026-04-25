@@ -14,7 +14,7 @@ sudo apt-get update -qq
 echo "==> INSTALLING CORE PACKAGES..."
 sudo apt-get install -y \
     sudo zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget tree htop jq \
-    chafa rsync du-dust atuin micro
+    chafa rsync micro
 
 # checking if fzf needs extra setup
 if [ -d /usr/share/doc/fzf/examples ] && [ ! -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
@@ -71,6 +71,23 @@ else
     sudo apt-get install -y fd
 fi
 
+echo "==> INSTALLING DU-DUST..."
+if apt-cache show du-dust &>/dev/null; then
+    sudo apt-get install -y du-dust
+else
+    DUST_VERSION=$(curl -s https://api.github.com/repos/bootandy/dust/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+    curl -Lo /tmp/dust.deb "https://github.com/bootandy/dust/releases/download/${DUST_VERSION}/du-dust_${DUST_VERSION#v}_amd64.deb"
+    sudo dpkg -i /tmp/dust.deb
+    rm /tmp/dust.deb
+fi
+
+echo "==> INSTALLING ATUIN..."
+if apt-cache show atuin &>/dev/null; then
+    sudo apt-get install -y atuin
+else
+    curl -sSfL https://setup.atuin.sh | sh
+fi
+
 echo "==> INSTALLING YAZI..."
 YAZI_VERSION=$(curl -s https://api.github.com/repos/sxyazi/yazi/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
 curl -Lo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/download/${YAZI_VERSION}/yazi-x86_64-unknown-linux-musl.zip"
@@ -79,9 +96,7 @@ sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-musl/yazi /usr/local/bin/
 sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-musl/ya /usr/local/bin/
 
 echo "==> CLEANING UP TEMP FILES..."
-rm -f /tmp/bat.deb
-rm -f /tmp/fastfetch.deb
-rm -rf /tmp/yazi.zip /tmp/yazi
+rm -f /tmp/bat.deb /tmp/fastfetch.deb /tmp/dust.deb
 rm -rf /tmp/yazi.zip /tmp/yazi
 
 echo "==> CLEARNING  MOTD AND LOGIN MESSAGES..."
