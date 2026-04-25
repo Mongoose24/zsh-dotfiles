@@ -14,7 +14,6 @@ alias lzsh="nano ~/.oh-my-zsh/custom/local-functions/local-zsh.zsh"
 alias lfuncs="cd ~/.oh-my-zsh/custom/local-functions && ll"
 alias funcs="cd ~/zsh-dotfiles/zsh/.oh-my-zsh/custom/functions && ll"
 alias zdot="cd ~/zsh-dotfiles && ll"
-alias dot="cd ~/dotfiles && ll"
 alias sshconf="nano ~/.ssh/config"
 alias szs='source ~/.zshrc'
 alias lgit='lazygit'
