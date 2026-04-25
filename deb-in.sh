@@ -56,8 +56,8 @@ echo "==> INSTALLING BAT..."
 if apt-cache show bat &>/dev/null; then
     sudo apt-get install -y bat
 else
-    BAT_VERSION=$(curl -s https://api.github.com/repos/sharkdp/bat/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-    curl -Lo /tmp/bat.deb "https://github.com/sharkdp/bat/releases/download/${BAT_VERSION}/bat_${BAT_VERSION#v}_amd64.deb"
+    BAT_VERSION=$(curl -sf https://api.github.com/repos/sharkdp/bat/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+    curl -fLo /tmp/bat.deb "https://github.com/sharkdp/bat/releases/download/${BAT_VERSION}/bat_${BAT_VERSION#v}_amd64.deb"
     sudo dpkg -i /tmp/bat.deb
     rm /tmp/bat.deb
 fi
@@ -75,10 +75,12 @@ echo "==> INSTALLING DU-DUST..."
 if apt-cache show du-dust &>/dev/null; then
     sudo apt-get install -y du-dust
 else
-    DUST_VERSION=$(curl -s https://api.github.com/repos/bootandy/dust/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-    curl -Lo /tmp/dust.deb "https://github.com/bootandy/dust/releases/download/${DUST_VERSION}/du-dust_${DUST_VERSION#v}_amd64.deb"
-    sudo dpkg -i /tmp/dust.deb
-    rm /tmp/dust.deb
+    DUST_VERSION=$(curl -sf https://api.github.com/repos/bootandy/dust/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+    if [ -z "$DUST_VERSION" ]; then echo "    WARNING: could not fetch dust version, skipping."; else
+        curl -fLo /tmp/dust.deb "https://github.com/bootandy/dust/releases/download/${DUST_VERSION}/du-dust_${DUST_VERSION#v}_amd64.deb"
+        sudo dpkg -i /tmp/dust.deb
+        rm /tmp/dust.deb
+    fi
 fi
 
 echo "==> INSTALLING ATUIN..."
@@ -89,8 +91,8 @@ else
 fi
 
 echo "==> INSTALLING YAZI..."
-YAZI_VERSION=$(curl -s https://api.github.com/repos/sxyazi/yazi/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-curl -Lo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/download/${YAZI_VERSION}/yazi-x86_64-unknown-linux-musl.zip"
+YAZI_VERSION=$(curl -sf https://api.github.com/repos/sxyazi/yazi/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+curl -fLo /tmp/yazi.zip "https://github.com/sxyazi/yazi/releases/download/${YAZI_VERSION}/yazi-x86_64-unknown-linux-musl.zip"
 unzip -q /tmp/yazi.zip -d /tmp/yazi
 sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-musl/yazi /usr/local/bin/
 sudo mv /tmp/yazi/yazi-x86_64-unknown-linux-musl/ya /usr/local/bin/
