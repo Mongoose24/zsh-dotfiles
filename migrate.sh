@@ -2,7 +2,7 @@
 set -e
 
 echo "==> Removing old dotfiles symlinks..."
-rm -f ~/.zshrc ~/.p10k.zsh ~/.config
+rm -rf ~/.zshrc ~/.p10k.zsh ~/.config
 rm -f ~/.oh-my-zsh/custom/aliases.zsh \
       ~/.oh-my-zsh/custom/custom.zsh \
       ~/.oh-my-zsh/custom/functions
