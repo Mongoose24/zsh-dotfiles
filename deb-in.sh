@@ -72,7 +72,9 @@ else
 fi
 
 echo "==> INSTALLING DU-DUST..."
-if apt-cache show du-dust &>/dev/null; then
+if command -v dust &>/dev/null; then
+    echo "    du-dust already installed, skipping."
+elif apt-cache show du-dust &>/dev/null; then
     sudo apt-get install -y du-dust
 else
     DUST_URL=$(curl -sf https://api.github.com/repos/bootandy/dust/releases/latest | grep 'browser_download_url.*amd64\.deb' | cut -d'"' -f4)
@@ -84,7 +86,9 @@ else
 fi
 
 echo "==> INSTALLING ATUIN..."
-if apt-cache show atuin &>/dev/null; then
+if command -v atuin &>/dev/null; then
+    echo "    atuin already installed, skipping."
+elif apt-cache show atuin &>/dev/null; then
     sudo apt-get install -y atuin
 else
     curl -sSfL https://setup.atuin.sh | sh
