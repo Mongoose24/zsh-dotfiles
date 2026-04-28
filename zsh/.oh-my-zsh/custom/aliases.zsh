@@ -46,13 +46,6 @@ elif command -v brew &>/dev/null; then
     alias rmpkg="brew uninstall"
 fi
 
-# rsync -> rsyncy/rsync --info-progress2
-if command -v rsyncy &>/dev/null; then
-    alias rsync='rsyncy'
-else
-    alias rsync='/usr/bin/rsync --info=progress2'
-fi
-
 # Get the error messages from journalctl
 alias jctl="journalctl -p 3 -xb"
 
