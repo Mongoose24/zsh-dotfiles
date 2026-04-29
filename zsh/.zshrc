@@ -62,6 +62,9 @@ clear-keep-buffer() {
 zle -N clear-keep-buffer
 bindkey '^Xl' clear-keep-buffer
 
+export EDITOR=nano
+export VISUAL=nano
+
 # export LANG=en_US.UTF-8
 # export MANPATH="/usr/local/man:$MANPATH"
 

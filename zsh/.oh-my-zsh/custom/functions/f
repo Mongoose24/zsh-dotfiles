@@ -1,6 +1,40 @@
-local file
-file=$(fzf \
-  --bind 'alt-n:execute(nano {})' \
-  --preview "$HOME/zsh-dotfiles/zsh/.oh-my-zsh/custom/functions/fzf-preview.sh {}" \
-  --preview-window right:50%:wrap)
-[[ -n "$file" ]] && cd "$(dirname "$file")"
+local out key file dir
+
+out=$(
+  fzf \
+    --height 40% \
+    --layout reverse \
+    --border \
+    --prompt 'file> ' \
+    --header 'ENTER: open | Alt-c: cd to dir | Ctrl-y: copy path | Ctrl-/: preview' \
+    --expect=enter,alt-c \
+    --bind 'ctrl-y:execute-silent(
+      if command -v pbcopy >/dev/null 2>&1; then
+        printf %s {} | pbcopy
+      elif command -v wl-copy >/dev/null 2>&1; then
+        printf %s {} | wl-copy
+      elif command -v xclip >/dev/null 2>&1; then
+        printf %s {} | xclip -selection clipboard
+      elif command -v xsel >/dev/null 2>&1; then
+        printf %s {} | xsel --clipboard --input
+      fi
+    )' \
+    --bind 'ctrl-/:toggle-preview' \
+    --preview "$HOME/zsh-dotfiles/zsh/.oh-my-zsh/custom/functions/fzf-preview.sh {}" \
+    --preview-window 'right,50%,wrap'
+) || return
+
+key=${out%%$'\n'*}
+file=${out#*$'\n'}
+
+[[ -n "$file" ]] || return
+
+case "$key" in
+  enter)
+    "${EDITOR:-nano}" -- "$file"
+    ;;
+  alt-c)
+    dir=$(dirname -- "$file")
+    [[ -d "$dir" ]] && builtin cd -- "$dir"
+    ;;
+esac

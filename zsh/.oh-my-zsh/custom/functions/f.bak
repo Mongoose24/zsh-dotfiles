@@ -1,0 +1,6 @@
+-local file
+file=$(fzf \
+--bind 'alt-n:execute(nano {})' \
+--preview "$HOME/zsh-dotfiles/zsh/.oh-my-zsh/custom/functions/fzf-preview.sh {}" \
+--preview-window right:50%:wrap)
+[[ -n "$file" ]] && cd "$(dirname "$file")"
