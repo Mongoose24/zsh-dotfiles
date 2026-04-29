@@ -1,6 +1,11 @@
-local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-sudo HOME="$HOME" yazi --cwd-file="$tmp" "$@"
-if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-    cd -- "$cwd"
+local tmp cwd
+tmp="$(mktemp -t "yazi-cwd.XXXXXX")" || return
+
+command sudo HOME="$HOME" yazi "$@" --cwd-file="$tmp"
+
+cwd="$(<"$tmp")"
+if [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && [ -d "$cwd" ]; then
+    builtin cd -- "$cwd"
 fi
+
 rm -f -- "$tmp"
