@@ -2,12 +2,11 @@ local out key file dir
 
 out=$(
   fzf \
-    --height 40% \
-    --layout reverse \
     --border \
     --prompt 'file> ' \
-    --header 'ENTER: open | Alt-c: cd to dir | Ctrl-y: copy path | Ctrl-/: preview' \
-    --expect=enter,alt-c \
+    --header $'ENTER: open | Alt-c: cd to dir | Ctrl-y: copy path\nAlt-.: preview | Alt-,: full preview' \
+    --expect=alt-c \
+    --bind 'enter:execute(${EDITOR:-nano} -- {})' \
     --bind 'ctrl-y:execute-silent(
       if command -v pbcopy >/dev/null 2>&1; then
         printf %s {} | pbcopy
@@ -19,7 +18,8 @@ out=$(
         printf %s {} | xsel --clipboard --input
       fi
     )' \
-    --bind 'ctrl-/:toggle-preview' \
+    --bind 'alt-.:toggle-preview' \
+    --bind 'alt-,:change-preview-window(right,50%,wrap|up,99%,wrap,border-bottom)' \
     --preview "$HOME/zsh-dotfiles/zsh/.oh-my-zsh/custom/functions/fzf-preview.sh {}" \
     --preview-window 'right,50%,wrap'
 ) || return
@@ -30,9 +30,6 @@ file=${out#*$'\n'}
 [[ -n "$file" ]] || return
 
 case "$key" in
-  enter)
-    "${EDITOR:-nano}" -- "$file"
-    ;;
   alt-c)
     dir=$(dirname -- "$file")
     [[ -d "$dir" ]] && builtin cd -- "$dir"
