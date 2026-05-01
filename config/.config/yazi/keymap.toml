@@ -17,3 +17,8 @@ desc = "Reveal in file manager"
 on = "Z"
 run = '''shell 'fzf --preview "cat {}" --preview-window right:50%:wrap --bind "n:execute(nano {})"' --block'''
 desc = "fzf file finder"
+
+[[mgr.prepend_keymap]]
+on   = [ "t", "t" ]
+run  = "plugin smart-tab"
+desc = "Create a tab and enter the hovered directory"

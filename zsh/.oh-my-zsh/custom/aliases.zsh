@@ -3,6 +3,8 @@ alias n="nano"
 alias m="micro"
 alias sn="sudo nano"
 alias sm="sudo micro"
+alias v="nvim"
+alias sv="sudo nvm"
 alias c="clear"
 alias x="exit"
 alias ssh="env TERM=xterm-256color ssh"
@@ -21,6 +23,13 @@ alias duno='dust --no-percent-bars'
 alias lsblko='sudo lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS'
 alias p3='python3'
 alias dockerps="docker ps --format '{{.Names}}'"
+
+# TMUX aliases:
+alias t="tmux"
+alias ta='tmux attach-session'
+alias tl='tmux list-sessions'
+alias tn='tmux new-session'
+alias tk='tmux kill-session'
 
 # Error output options
 alias -g NE='2>/dev/null'
