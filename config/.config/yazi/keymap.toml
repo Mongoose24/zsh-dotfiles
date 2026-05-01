@@ -22,3 +22,13 @@ desc = "fzf file finder"
 on   = [ "t", "t" ]
 run  = "plugin smart-tab"
 desc = "Create a tab and enter the hovered directory"
+
+[[mgr.prepend_keymap]]
+on   = "p"
+run  = "plugin smart-paste"
+desc = "Paste into the hovered directory or CWD"
+
+[[mgr.prepend_keymap]]
+on   = "l"
+run  = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
