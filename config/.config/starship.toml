@@ -64,7 +64,7 @@ disabled = true
 [custom.ssh_info]
 command = "echo $USER@$(hostname -s)"
 when = '[ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]'
-format = "[$output](green bold)\n"
+format = "[$output](surface2)\n"
 
 [custom.venv]
 command = "basename $(dirname $VIRTUAL_ENV)"
