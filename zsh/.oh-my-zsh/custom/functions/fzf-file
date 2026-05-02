@@ -1,3 +1,4 @@
+zle -I
 local file
 file=$(fd --type f --hidden --follow --exclude .git --exclude node_modules . ~ 2>/dev/null | \
   fzf \

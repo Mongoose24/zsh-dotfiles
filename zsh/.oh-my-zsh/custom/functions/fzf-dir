@@ -1,3 +1,4 @@
+zle -I
 local dir
 dir=$(fd --type d --hidden --follow --exclude .git --exclude node_modules . ~ 2>/dev/null | \
   fzf \
@@ -10,5 +11,5 @@ dir=$(fd --type d --hidden --follow --exclude .git --exclude node_modules . ~ 2>
     --preview 'eza --icons --color=always {} 2>/dev/null || ls --color=always {}' \
     --preview-window 'right,40%') || return
 
-builtin cd -- "$dir"
+z "$dir"
 zle reset-prompt
