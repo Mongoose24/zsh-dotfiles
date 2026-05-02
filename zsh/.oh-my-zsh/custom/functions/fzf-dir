@@ -1,0 +1,14 @@
+local dir
+dir=$(fd --type d --hidden --follow --exclude .git --exclude node_modules . ~ 2>/dev/null | \
+  fzf \
+    --height 50% \
+    --reverse \
+    --border \
+    --prompt "  " \
+    --border-label " cd " \
+    --color "bg:-1,bg+:-1,gutter:-1,border:-1,fg:#cdd6f4,fg+:#cdd6f4,hl:#f38ba8,hl+:#f38ba8,info:#89b4fa,marker:#f9e2af,pointer:#f5c2e7,prompt:#89b4fa,header:#a6adc8" \
+    --preview 'eza --icons --color=always {} 2>/dev/null || ls --color=always {}' \
+    --preview-window 'right,40%') || return
+
+builtin cd -- "$dir"
+zle reset-prompt
