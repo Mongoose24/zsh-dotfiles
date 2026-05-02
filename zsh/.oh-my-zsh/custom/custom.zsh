@@ -1,6 +1,7 @@
 # custom ZSH stuff goes here i guess
 
 export PATH="$HOME/.local/bin:$PATH"
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Zoxide
 if command -v zoxide &>/dev/null; then

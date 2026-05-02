@@ -1,66 +1,106 @@
 add_newline = false
-# A minimal left prompt
-format = """$directory$character"""
-palette = "catppuccin_mocha"
-# move the rest of the prompt to the right
-right_format = """$all"""
+palette = "catppuccin_frappe"
 command_timeout = 1000
 
+format = """
+$directory$git_branch$git_status
+${custom.venv}$character"""
+
+right_format = """$cmd_duration$time"""
+
 [character]
-vicmd_symbol = "[N] >>>"
-success_symbol = '[➜](bold green)'
+success_symbol = '[❯](mauve)'
+error_symbol = '[❯❮](red)'
+vicmd_symbol = '[❮](green)'
+
+[directory]
+style = "blue bold"
+# truncation_length = 4
+truncate_to_repo = false
 
 [directory.substitutions]
-'~/tests/starship-custom' = 'work-project'
+'~/zsh-dotfiles' = 'zdot'
 
 [git_branch]
-format =  '[$symbol$branch(:$remote_branch)]($style)'
+format = ' [$symbol$branch]($style)'
+style = "overlay2"
+
+[git_status]
+format = '([$all_status$ahead_behind]($style))'
+style = "overlay1"
+ahead = "⇡"
+behind = "⇣"
+diverged = "⇕"
+modified = "*"
+staged = "+"
+untracked = "?"
+deleted = "✘"
+
+[cmd_duration]
+min_time = 2000
+format = '[$duration](yellow) '
+
+[time]
+disabled = false
+format = '[$time](overlay2)'
+time_format = '%I:%M %p'
 
 [aws]
-format = '[$symbol(profile: "$profile" )(\(region: $region\) )]($style)'
-disabled = false
-style = 'bold blue'
-symbol = " "
+disabled = true
+
+[gcloud]
+disabled = true
+
+[nodejs]
+disabled = true
 
 [golang]
-format = '[ ](bold cyan)'
-
-[kubernetes]
-symbol = '☸ '
 disabled = true
-detect_files = ['Dockerfile']
-format = '[$symbol$context( \($namespace\))]($style) '
-contexts = [
-  { context_pattern = "arn:aws:eks:us-west-2:577926974532:cluster/zd-pvc-omer", style = "green", context_alias = "omerxx", symbol = " " },
-]
+
+[custom.venv]
+command = "basename $(dirname $VIRTUAL_ENV)"
+when = '[ -n "$VIRTUAL_ENV" ]'
+format = '[$output❯](surface2)'
+
+[rust]
+disabled = true
 
 [docker_context]
 disabled = true
 
-[palettes.catppuccin_mocha]
-rosewater = "#f5e0dc"
-flamingo = "#f2cdcd"
-pink = "#f5c2e7"
-mauve = "#cba6f7"
-red = "#f38ba8"
-maroon = "#eba0ac"
-peach = "#fab387"
-yellow = "#f9e2af"
-green = "#a6e3a1"
-teal = "#94e2d5"
-sky = "#89dceb"
-sapphire = "#74c7ec"
-blue = "#89b4fa"
-lavender = "#b4befe"
-text = "#cdd6f4"
-subtext1 = "#bac2de"
-subtext0 = "#a6adc8"
-overlay2 = "#9399b2"
-overlay1 = "#7f849c"
-overlay0 = "#6c7086"
-surface2 = "#585b70"
-surface1 = "#45475a"
-surface0 = "#313244"
-base = "#1e1e2e"
-mantle = "#181825"
-crust = "#11111b"
+[kubernetes]
+disabled = true
+
+[package]
+disabled = true
+
+[palettes.catppuccin_frappe]
+rosewater = "#f2d5cf"
+flamingo = "#eebebe"
+pink = "#f4b8e4"
+mauve = "#ca9ee6"
+red = "#e78284"
+maroon = "#ea999c"
+peach = "#ef9f76"
+yellow = "#e5c890"
+green = "#a6d189"
+teal = "#81c8be"
+sky = "#99d1db"
+sapphire = "#85c1dc"
+blue = "#8caaee"
+lavender = "#babbf1"
+text = "#c6d0f5"
+subtext1 = "#b5bfe2"
+subtext0 = "#a5adce"
+overlay2 = "#949cbb"
+overlay1 = "#838ba7"
+overlay0 = "#737994"
+surface2 = "#626880"
+surface1 = "#51576d"
+surface0 = "#414559"
+base = "#303446"
+mantle = "#292c3c"
+crust = "#232634"
+
+
+
