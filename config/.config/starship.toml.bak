@@ -3,7 +3,7 @@ palette = "catppuccin_frappe"
 command_timeout = 1000
 
 format = """
-${custom.ssh_info}$directory$git_branch$git_status
+$directory$git_branch$git_status
 ${custom.venv}$character"""
 
 right_format = """$cmd_duration$time"""
@@ -60,11 +60,6 @@ disabled = true
 
 [golang]
 disabled = true
-
-[custom.ssh_info]
-command = "echo $USER@$(hostname -s)"
-when = '[ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]'
-format = "[$output](green bold)\n"
 
 [custom.venv]
 command = "basename $(dirname $VIRTUAL_ENV)"
