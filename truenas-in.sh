@@ -6,7 +6,7 @@ GITHUB_REPO="https://github.com/Mongoose24/zsh-dotfiles.git"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 echo "==> REMOVING OLD DOTFILES SYMLINKS..."
-rm -f "$HOME/.zshrc" "$HOME/.p10k.zsh"
+rm -f "$HOME/.zshrc" "$HOME/.p10k.zsh" "$HOME/.tmux.conf"
 rm -f "$ZSH_CUSTOM/aliases.zsh" "$ZSH_CUSTOM/custom.zsh" "$ZSH_CUSTOM/functions"
 rm -f "$HOME/.config/nano/glsl.nanorc" "$HOME/.config/nano/toml.nanorc" "$HOME/.config/nano/nanorc"
 rm -f "$HOME/.config/yazi/yazi.toml" "$HOME/.config/yazi/keymap.toml"
@@ -29,19 +29,22 @@ sed -i '/\. "\$HOME\/.atuin\/bin\/env"/d; /eval "\$(atuin init zsh)"/d' "$DOTFIL
 
 echo "==> SYMLINKING DOTFILES..."
 ln -sf "$DOTFILES_DIR/zsh/.zshrc"                              "$HOME/.zshrc"
-ln -sf "$DOTFILES_DIR/p10k/.p10k.zsh"                         "$HOME/.p10k.zsh"
+ln -sf "$DOTFILES_DIR/tmux/.tmux.conf"                         "$HOME/.tmux.conf"
 ln -sf "$DOTFILES_DIR/zsh/.oh-my-zsh/custom/aliases.zsh"      "$ZSH_CUSTOM/aliases.zsh"
 ln -sf "$DOTFILES_DIR/zsh/.oh-my-zsh/custom/custom.zsh"       "$ZSH_CUSTOM/custom.zsh"
 ln -sf "$DOTFILES_DIR/zsh/.oh-my-zsh/custom/functions"        "$ZSH_CUSTOM/functions"
 
 # config — link per-file, .config dir already exists on TrueNAS
-mkdir -p "$HOME/.config/nano" "$HOME/.config/yazi" "$HOME/.config/atuin" "$HOME/.config/micro"
+mkdir -p "$HOME/.config/nano" "$HOME/.config/yazi" "$HOME/.config/atuin" "$HOME/.config/micro" "$HOME/.local/bin"
+ln -sf "$DOTFILES_DIR/tmux/.local/bin/sesh-picker"            "$HOME/.local/bin/sesh-picker"
+chmod +x "$HOME/.local/bin/sesh-picker"
 ln -sf "$DOTFILES_DIR/config/.config/nano/glsl.nanorc"        "$HOME/.config/nano/glsl.nanorc"
 ln -sf "$DOTFILES_DIR/config/.config/nano/toml.nanorc"        "$HOME/.config/nano/toml.nanorc"
 ln -sf "$DOTFILES_DIR/config/.config/nano/nanorc"             "$HOME/.config/nano/nanorc"
 ln -sf "$DOTFILES_DIR/config/.config/yazi/yazi.toml"          "$HOME/.config/yazi/yazi.toml"
 ln -sf "$DOTFILES_DIR/config/.config/yazi/keymap.toml"        "$HOME/.config/yazi/keymap.toml"
 ln -sf "$DOTFILES_DIR/config/.config/atuin/config.toml"       "$HOME/.config/atuin/config.toml"
+ln -sf "$DOTFILES_DIR/config/.config/starship.toml"           "$HOME/.config/starship.toml"
 ln -sf "$DOTFILES_DIR/config/.config/micro/bindings.json"     "$HOME/.config/micro/bindings.json"
 ln -sf "$DOTFILES_DIR/config/.config/micro/settings.json"     "$HOME/.config/micro/settings.json"
 
@@ -86,6 +89,29 @@ else
     mv /tmp/yazi/yazi-x86_64-unknown-linux-musl/yazi "$HOME/.local/bin/"
     mv /tmp/yazi/yazi-x86_64-unknown-linux-musl/ya "$HOME/.local/bin/"
     rm -rf /tmp/yazi.zip /tmp/yazi
+fi
+
+echo "==> INSTALLING STARSHIP..."
+if ! command -v starship &>/dev/null; then
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes --bin-dir "$HOME/.local/bin"
+else
+    echo "    Starship already installed, skipping."
+fi
+
+echo "==> INSTALLING TMUX..."
+if ! command -v tmux &>/dev/null; then
+    curl -fLo "$HOME/.local/bin/tmux" \
+        "https://github.com/nelsonenzo/tmux-appimage/releases/latest/download/tmux.appimage"
+    chmod +x "$HOME/.local/bin/tmux"
+else
+    echo "    tmux already installed, skipping."
+fi
+
+echo "==> INSTALLING TPM..."
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    git clone --depth=1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+else
+    echo "    TPM already installed, skipping."
 fi
 
 echo "==> INSTALLING ATUIN..."

@@ -14,7 +14,7 @@ sudo apt-get update -qq
 echo "==> INSTALLING CORE PACKAGES..."
 sudo apt-get install -y \
     sudo zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget tree htop jq \
-    chafa rsync micro
+    chafa rsync micro tmux
 
 # checking if fzf needs extra setup
 if [ -d /usr/share/doc/fzf/examples ] && [ ! -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
@@ -142,12 +142,18 @@ else
     echo "    zsh-history-substring-search already installed, skipping."
 fi
 
-echo "==> INSTALLING P10K THEME..."
-if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git \
-        "$ZSH_CUSTOM/themes/powerlevel10k"
+echo "==> INSTALLING STARSHIP..."
+if ! command -v starship &>/dev/null; then
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes
 else
-    echo "    Powerlevel10k already installed, skipping."
+    echo "    Starship already installed, skipping."
+fi
+
+echo "==> INSTALLING TPM (tmux plugin manager)..."
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    git clone --depth=1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+else
+    echo "    TPM already installed, skipping."
 fi
 
 echo "==> CLONING DOTFILES..."
@@ -163,11 +169,11 @@ cd "$DOTFILES_DIR"
 
 # Backup and remove any existing files that would block stow
 [ -f "$HOME/.zshrc" ] && mv "$HOME/.zshrc" "$HOME/.zshrc.bak" && echo "    Backed up existing .zshrc"
-[ -f "$HOME/.p10k.zsh" ] && mv "$HOME/.p10k.zsh" "$HOME/.p10k.zsh.bak" && echo "    Backed up existing .p10k.zsh"
+[ -f "$HOME/.tmux.conf" ] && mv "$HOME/.tmux.conf" "$HOME/.tmux.conf.bak" && echo "    Backed up existing .tmux.conf"
 
 stow zsh
-stow p10k
 stow config
+stow tmux
 
 echo "==> CONFIGURING NANO..."
 echo "include /usr/share/nano/*.nanorc" > "$HOME/.config/nano/nanorc"
