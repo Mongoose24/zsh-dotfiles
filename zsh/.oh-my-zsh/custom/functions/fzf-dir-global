@@ -1,15 +1,16 @@
 local dir
-dir=$(fd --type d --hidden --max-depth 5 \
+dir=$({ zoxide query -l 2>/dev/null; fd --type d --hidden --max-depth 5 \
   --exclude .git --exclude node_modules --exclude .tmux --exclude .cargo \
   --exclude __pycache__ --exclude .cache --exclude .rustup --exclude .npm \
   --exclude target --exclude dist --exclude build --exclude .venv \
-  . 2>/dev/null | \
+  --exclude '.local/share/nvim' --exclude '.local/share/pnpm' \
+  . "$HOME" 2>/dev/null; } | awk '!seen[$0]++' | \
   fzf \
     --height 50% \
     --reverse \
     --border \
     --prompt " dir  " \
-    --border-label " cd " \
+    --border-label " cd (global) " \
     --color "bg:-1,bg+:-1,gutter:-1,border:-1,fg:#cdd6f4,fg+:#cdd6f4,hl:#f38ba8,hl+:#f38ba8,info:#89b4fa,marker:#f9e2af,pointer:#f5c2e7,prompt:#89b4fa,header:#a6adc8" \
     --preview 'eza --icons --color=always -1 {} 2>/dev/null || ls --color=always {}' \
     --preview-window 'right,40%') || return

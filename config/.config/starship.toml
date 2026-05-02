@@ -10,16 +10,16 @@ right_format = """$cmd_duration$time"""
 
 [character]
 success_symbol = '[❯](mauve)'
-error_symbol = '[❯❮](red)'
+error_symbol = '[❮](red)'
 vicmd_symbol = '[❮](green)'
 
 [directory]
 style = "blue bold"
-# truncation_length = 4
+truncation_length = 8
 truncate_to_repo = false
 
 [directory.substitutions]
-'~/zsh-dotfiles' = 'zdot'
+# '~/zsh-dotfiles' = 'zdot'
 
 [git_branch]
 format = ' [$symbol$branch]($style)'

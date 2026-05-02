@@ -3,13 +3,13 @@ file=$(fd --type f --hidden --max-depth 6 \
   --exclude .git --exclude node_modules --exclude .tmux \
   --exclude __pycache__ --exclude .cache --exclude target \
   --exclude dist --exclude build --exclude .venv \
-  . 2>/dev/null | \
+  . "$HOME" 2>/dev/null | \
   fzf \
     --height 50% \
     --reverse \
     --border \
     --prompt " file  " \
-    --border-label " edit " \
+    --border-label " edit (global) " \
     --color "bg:-1,bg+:-1,gutter:-1,border:-1,fg:#cdd6f4,fg+:#cdd6f4,hl:#f38ba8,hl+:#f38ba8,info:#89b4fa,marker:#f9e2af,pointer:#f5c2e7,prompt:#89b4fa,header:#a6adc8" \
     --preview 'bat --color=always --style=plain {} 2>/dev/null || cat {}' \
     --preview-window 'right,40%') || return

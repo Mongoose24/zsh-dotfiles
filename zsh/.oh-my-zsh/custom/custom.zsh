@@ -44,11 +44,20 @@ zstyle ':completion:*' squeeze-slashes true
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 
-# fzf directory jump (alt-d) and file open (shift-alt-d)
+# fzf pickers: cwd (alt) and global (alt+shift)
 zle -N fzf-dir
 zle -N fzf-file
-bindkey '\Ed' fzf-dir
-bindkey '\ED' fzf-file
+zle -N fzf-dir-global
+zle -N fzf-file-global
+bindkey '\ed' fzf-dir
+bindkey '\ef' fzf-file
+bindkey '\ED' fzf-dir-global
+bindkey '\EF' fzf-file-global
+
+zle -N y
+zle -N sy
+bindkey '\ey' y
+bindkey '\EY' sy
 
 # Vibe keys
 export MISTRAL_API_KEY="i1mK69RbzemrOtKidxIynidy5ZyPcqQL"

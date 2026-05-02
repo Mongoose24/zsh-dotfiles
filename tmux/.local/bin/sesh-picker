@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# enter: new window | shift-enter: new session
+
+if ! command -v sesh >/dev/null 2>&1; then
+  tmux display-message "sesh not installed"
+  exit 1
+fi
+
+out=$(sesh list --icons | fzf-tmux -p 80%,70% \
+  --no-sort --ansi \
+  --border-label " sesh " \
+  --prompt "⚡  " \
+  --header "  ^a all ^t tmux ^g configs ^x zoxide ^d kill ^f find  |  enter: window  ^s: session" \
+  --color "bg:-1,bg+:-1,gutter:-1,border:-1,preview-bg:-1,fg:#cdd6f4,fg+:#cdd6f4,hl:#f38ba8,hl+:#f38ba8,info:#89b4fa,marker:#f9e2af,pointer:#f5c2e7,prompt:#89b4fa,header:#a6adc8" \
+  --bind "tab:down,btab:up" \
+  --bind "ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)" \
+  --bind "ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)" \
+  --bind "ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)" \
+  --bind "ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)" \
+  --bind "ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)" \
+  --bind "ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)" \
+  --expect=ctrl-s \
+  --preview-window "right:55%" \
+  --preview "sesh preview {}") || exit 0
+
+[ -z "$out" ] && exit 0
+
+key=$(echo "$out" | head -1)
+selected=$(echo "$out" | tail -1)
+
+[ -z "$selected" ] && exit 0
+
+if [ "$key" = "ctrl-s" ]; then
+  sesh connect "$selected"
+else
+  path=$(echo "$selected" | sed 's/^[^ ]* //')
+  sesh window "$path"
+fi
