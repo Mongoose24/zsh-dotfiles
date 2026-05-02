@@ -1,9 +1,3 @@
-# typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
-# Enable Powerlevel10k instant prompt (add near the top)
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -42,16 +36,6 @@ else
 fi
 
 source $ZSH/oh-my-zsh.sh
-
-# Powerlevel10k customization (multi-locational)
-if [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then
-    source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-elif [[ -f ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme ]]; then
-    source ~/.oh-my-zsh/custom/themes/powerlevel10k/powerlevel10k.zsh-theme
-elif command -v brew &>/dev/null && [[ -f $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme ]]; then
-    source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
-fi
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 source $ZSH_CUSTOM/custom.zsh
 
