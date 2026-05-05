@@ -27,17 +27,18 @@ if command -v fzf &>/dev/null; then
         fzf
         zsh-autosuggestions
         zsh-history-substring-search
-        zsh-syntax-highlighting
+        fast-syntax-highlighting
     )
 else
     plugins=(
         git
         zsh-autosuggestions
         zsh-history-substring-search
-        zsh-syntax-highlighting
+        fast-syntax-highlighting
     )
 fi
 
+FUNCNEST=99
 source $ZSH/oh-my-zsh.sh
 
 source $ZSH_CUSTOM/custom.zsh

@@ -130,11 +130,11 @@ else
     echo "    zsh-autosuggestions already installed, skipping."
 fi
 
-if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
-    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting \
-        "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+if [ ! -d "$ZSH_CUSTOM/plugins/fast-syntax-highlighting" ]; then
+    git clone --depth=1 https://github.com/zdharma-continuum/fast-syntax-highlighting \
+        "$ZSH_CUSTOM/plugins/fast-syntax-highlighting"
 else
-    echo "    zsh-syntax-highlighting already installed, skipping."
+    echo "    fast-syntax-highlighting already installed, skipping."
 fi
 
 if [ ! -d "$ZSH_CUSTOM/plugins/zsh-history-substring-search" ]; then
