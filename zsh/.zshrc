@@ -19,24 +19,12 @@ DISABLE_MAGIC_FUNCTIONS="true"
 # DISABLE_AUTO_TITLE="true"
 ENABLE_CORRECTION="true"
 
-# Conditional plugins (truanas compatibility)
-FZF_CTRL_R_COMMAND=''
-if command -v fzf &>/dev/null; then
-    plugins=(
-        git
-        fzf
-        zsh-autosuggestions
-        zsh-history-substring-search
-        fast-syntax-highlighting
-    )
-else
-    plugins=(
+plugins=(
         git
         zsh-autosuggestions
         zsh-history-substring-search
         fast-syntax-highlighting
-    )
-fi
+)
 
 FUNCNEST=99
 source $ZSH/oh-my-zsh.sh
