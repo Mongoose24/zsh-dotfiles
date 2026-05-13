@@ -24,6 +24,7 @@ truncate_to_repo = false
 '~/ELYSIUM/LP VAULT' = '(LINT)/'
 '~/ELYSIUM/MESKO VAULT' = '(MESKO)/'
 '~/ELYSIUM/AGENT VAULT' = '(AGENT)/'
+'~/ELYSIUM/ELEVEN:57 VAULT' = '(ELEVEN:57)/'
 '~/komodo/peripheryrootstorage/stacks' = '(KOMODO)/'
 
 [git_branch]
