@@ -10,6 +10,10 @@ alias x="exit"
 alias zc="cd && clear"
 alias ssh="env TERM=xterm-256color ssh"
 alias up="cd .."
+alias up.="cd ..."
+alias up..="cd ...."
+alias up...="cd ....."
+alias up....="cd ......"
 alias l="eza --icons --color=always --group-directories-first -1" 
 alias zshrc="nano ~/.zshrc"
 alias custom="nano ~/.oh-my-zsh/custom/custom.zsh"
@@ -25,6 +29,7 @@ alias duno='dust --no-percent-bars'
 alias lsblko='sudo lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS'
 alias p3='python3'
 alias dockerps="docker ps --format '{{.Names}}'"
+alias pc="pastel color"
 
 # TMUX aliases
 alias t="tmux"
