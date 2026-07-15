@@ -1,0 +1,30 @@
+## Local override for JSON/JSONC syntax highlighting.
+## Based on /usr/share/nano/json.nanorc, with stronger contrast.
+
+syntax json "\.(json|jsonc)$"
+# No comments are permitted in JSON.
+comment ""
+
+# Numbers (used as value).
+color green ":[[:blank:]]*\-?(0|[1-9][0-9]*)(\.[0-9]+)?([Ee]?[-+]?[0-9]+)?"
+# Values (well, any string).
+color yellow "".+""
+# Hex numbers (used as value).
+color green ":[[:blank:]]*"#[[:xdigit:]]+""
+# Escapes.
+color brightmagenta "\\(["/bfnrt]|u[[:xdigit:]]{4})"
+# Special words.
+color magenta "\<(true|false|null)\>"
+
+# Names (object keys).
+color brightcyan ""[^"]+"[[:blank:]]*:"
+
+# Brackets, braces, and separators.
+color brightwhite "[][]"
+color brightred "[{},:]"
+
+# Comments (for JSONC).
+color cyan "(^|[[:blank:]]+)(//|#).*"
+
+# Trailing whitespace.
+color ,green "[[:space:]]+$"
