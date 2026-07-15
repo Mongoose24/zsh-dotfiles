@@ -61,9 +61,9 @@ alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
 
 # PACMAN / BREW SEPERATION
 if command -v pacman &>/dev/null; then
-    alias cleanup='pacman -Qtdq | xargs -r paru -Rsn; sudo pacman -Sc'
-    alias update='paru -Syu'
-    alias rmpkg="paru -Rsn"
+    alias cleanup='pacman -Qtdq | xargs -r yay -Rsn; sudo pacman -Sc'
+    alias update='yay -Syu'
+    alias rmpkg="yay -Rsn"
     alias fixpacman='sudo rm /var/lib/pacman/db.lck'
 elif command -v brew &>/dev/null; then
     alias cleanup='brew autoremove && brew cleanup'
