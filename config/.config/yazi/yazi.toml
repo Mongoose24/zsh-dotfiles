@@ -4,10 +4,29 @@ linemode = "size"
 
 [opener]
 edit = [
-  { run = "${EDITOR:-vi} %s", desc = "$EDITOR",      for = "unix",    block = true },
+  { run = "${EDITOR:-vi} %s",      desc = "$EDITOR",      for = "unix",    block = true },
   { run = "sudo ${EDITOR:-vi} %s", desc = "sudo $EDITOR", for = "unix",    block = true },
-  { run = "code %s",          desc = "code",         for = "windows", orphan = true },
-  { run = "code -w %s",       desc = "code (block)", for = "windows", block = true },
+  { run = "code %s",               desc = "code",         for = "windows", orphan = true },
+  { run = "code -w %s",            desc = "code (block)", for = "windows", block = true },
+]
+open = [
+  { run = "xdg-open %s1",    desc = "Open in default app", for = "linux" },
+  { run = "open %s",         desc = "Open in default app", for = "macos" },
+  { run = 'start "" %s1',    desc = "Open in default app", for = "windows", orphan = true },
+  { run = "termux-open %s1", desc = "Open in default app", for = "android" },
+]
+file-manager = [
+  { run = "sh -c 'if command -v dolphin >/dev/null 2>&1; then dolphin --select \"$1\"; else xdg-open \"$(dirname \"$1\")\"; fi' sh %s1", desc = "Reveal in file manager", for = "linux" },
+  { run = "open -R %s1", desc = "Reveal in file manager", for = "macos" },
+  { run = "explorer /select,%s1", desc = "Reveal in file manager", for = "windows", orphan = true },
+]
+
+[open]
+prepend_rules = [
+  { url = "*/", use = [ "edit", "open", "file-manager", "reveal" ] },
+  { mime = "text/*", use = [ "edit", "open", "file-manager", "reveal" ] },
+  { mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "open", "file-manager", "reveal" ] },
+  { mime = "inode/empty", use = [ "edit", "open", "file-manager", "reveal" ] },
 ]
 
 [[plugin.prepend_previewers]]
