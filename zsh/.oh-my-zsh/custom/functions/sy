@@ -1,7 +1,12 @@
 local tmp cwd
 tmp="$(mktemp -t "yazi-cwd.XXXXXX")" || return
 
-command sudo HOME="$HOME" yazi "$@" --cwd-file="$tmp"
+command sudo \
+    HOME="$HOME" \
+    XDG_CONFIG_HOME="$HOME/.config" \
+    XDG_CACHE_HOME="/tmp/yazi-root-$USER/cache" \
+    XDG_STATE_HOME="/tmp/yazi-root-$USER/state" \
+    yazi "$@" --cwd-file="$tmp"
 
 cwd="$(<"$tmp")"
 if [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && [ -d "$cwd" ]; then
