@@ -43,3 +43,4 @@ bindkey '^Xl' clear-keep-buffer
 export EDITOR=nano
 export VISUAL=nano
 
+source /home/lucas/.local/share/leaf/completions/_leaf

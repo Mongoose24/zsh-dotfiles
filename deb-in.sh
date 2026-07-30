@@ -16,6 +16,9 @@ sudo apt-get install -y \
     sudo zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget tree htop jq \
     chafa rsync micro tmux
 
+echo "==> INSTALLING LEAF..."
+curl -fsSL https://raw.githubusercontent.com/RivoLink/leaf/main/scripts/install.sh | sh
+
 # checking if fzf needs extra setup
 if [ -d /usr/share/doc/fzf/examples ] && [ ! -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
     sudo touch /usr/share/doc/fzf/examples/key-bindings.zsh
