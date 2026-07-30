@@ -1,5 +1,9 @@
-local dir
-dir=$({ zoxide query -l 2>/dev/null; fd --type d --hidden --max-depth 5 \
+local out key dir previewer
+
+previewer="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/functions/fzf-preview.sh"
+
+zle -I
+out=$({ zoxide query -l 2>/dev/null; fd --type d --hidden --max-depth 5 \
   --exclude .git --exclude node_modules --exclude .tmux --exclude .cargo \
   --exclude __pycache__ --exclude .cache --exclude .rustup --exclude .npm \
   --exclude target --exclude dist --exclude build --exclude .venv \
@@ -11,9 +15,38 @@ dir=$({ zoxide query -l 2>/dev/null; fd --type d --hidden --max-depth 5 \
     --border \
     --prompt " dir  " \
     --border-label " cd (global) " \
+    --header $'ENTER/Alt-c: cd | Ctrl-y: copy path\nAlt-.: preview | Alt-,: full preview' \
+    --expect=enter,alt-c \
+    --bind 'ctrl-y:execute-silent(
+      if command -v pbcopy >/dev/null 2>&1; then
+        printf %s {} | pbcopy
+      elif command -v wl-copy >/dev/null 2>&1; then
+        printf %s {} | wl-copy
+      elif command -v xclip >/dev/null 2>&1; then
+        printf %s {} | xclip -selection clipboard
+      elif command -v xsel >/dev/null 2>&1; then
+        printf %s {} | xsel --clipboard --input
+      fi
+    )' \
+    --bind 'alt-.:toggle-preview' \
+    --bind 'alt-,:change-preview-window(right,50%,wrap|up,99%,wrap,border-bottom)' \
     --color "bg:-1,bg+:-1,gutter:-1,border:-1,fg:#cdd6f4,fg+:#cdd6f4,hl:#f38ba8,hl+:#f38ba8,info:#89b4fa,marker:#f9e2af,pointer:#f5c2e7,prompt:#89b4fa,header:#a6adc8" \
-    --preview 'eza --icons --color=always -1 {} 2>/dev/null || ls --color=always {}' \
-    --preview-window 'right,40%') || return
+    --preview "$previewer {}" \
+    --preview-window 'right,50%,wrap') || { zle reset-prompt; return }
 
-z "$dir"
+if [[ "$out" == *$'\n'* ]]; then
+  key=${out%%$'\n'*}
+  dir=${out#*$'\n'}
+else
+  key=enter
+  dir=$out
+fi
+
+[[ -n "$dir" ]] || { zle reset-prompt; return }
+
+if [[ -d "$dir" ]]; then
+  builtin cd -- "$dir"
+else
+  z "$dir"
+fi
 zle reset-prompt

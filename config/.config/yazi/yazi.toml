@@ -2,6 +2,10 @@
 show_hidden = true
 linemode = "size"
 
+[[plugin.prepend_previewers]]
+url = "*.{md,markdown,mdown,mkd,mkdn,mdx}"
+run = "leaf"
+
 [[plugin.prepend_fetchers]]
 id    = "git" # Remove if Yazi > v26.1.22
 url   = "*"

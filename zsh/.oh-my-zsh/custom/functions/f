@@ -1,4 +1,6 @@
-local out key file dir
+local out key file dir previewer
+
+previewer="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/functions/fzf-preview.sh"
 
 out=$(
   fzf \
@@ -20,7 +22,7 @@ out=$(
     )' \
     --bind 'alt-.:toggle-preview' \
     --bind 'alt-,:change-preview-window(right,50%,wrap|up,99%,wrap,border-bottom)' \
-    --preview "$HOME/zsh-dotfiles/zsh/.oh-my-zsh/custom/functions/fzf-preview.sh {}" \
+    --preview "$previewer {}" \
     --preview-window 'right,50%,wrap'
 ) || return
 

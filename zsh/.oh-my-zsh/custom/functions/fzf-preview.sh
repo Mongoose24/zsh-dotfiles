@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 #
-# The purpose of this script is to demonstrate how to preview a file or an
-# image in the preview window of fzf.
-#
-# Dependencies:
-# - https://github.com/sharkdp/bat
-# - https://github.com/hpjansson/chafa
-# - https://iterm2.com/utilities/imgcat
+# Preview helper for fzf pickers.
+# - Directories are listed with eza/ls.
+# - Markdown files are rendered with leaf when available.
+# - Other text files use bat/batcat.
+# - Images/videos are rendered with terminal image helpers when available.
 
 if [[ $# -ne 1 ]]; then
   >&2 echo "usage: $0 FILENAME[:LINENO][:IGNORED]"
@@ -24,6 +22,16 @@ if [[ ! -r $file ]]; then
     file=${BASH_REMATCH[1]}
     center=${BASH_REMATCH[2]}
   fi
+fi
+
+if [[ -d $file ]]; then
+  printf '\e_Ga=d\e\\'
+  if command -v eza > /dev/null; then
+    eza --icons --color=always --group-directories-first -1 -- "$file" 2>/dev/null
+  else
+    ls -1 -- "$file" 2>/dev/null || ls -1 "$file"
+  fi
+  exit
 fi
 
 type=$(file --brief --dereference --mime -- "$file")
@@ -44,12 +52,24 @@ if [[ ! $type =~ image/ ]]; then
     exit
   fi
 
+  case "$file" in
+    *.[Mm][Dd]|*.[Mm][Aa][Rr][Kk][Dd][Oo][Ww][Nn]|*.[Mm][Dd][Oo][Ww][Nn]|*.[Mm][Kk][Dd]|*.[Mm][Kk][Dd][Nn]|*.[Mm][Dd][Xx])
+      if command -v leaf > /dev/null; then
+        printf '\e_Ga=d\e\\'
+        if [[ -n ${FZF_PREVIEW_COLUMNS:-} ]] && leaf --inline "ansi:${FZF_PREVIEW_COLUMNS}" "$file" 2>/dev/null; then
+          exit
+        fi
+        leaf --inline ansi "$file" 2>/dev/null && exit
+      fi
+      ;;
+  esac
+
   if command -v batcat > /dev/null; then
     batname="batcat"
   elif command -v bat > /dev/null; then
     batname="bat"
   else
-    cat "$1"
+    cat "$file"
     exit
   fi
 

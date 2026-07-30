@@ -1,5 +1,10 @@
-local file
-file=$(fd --type f --hidden --max-depth 6 \
+local out key file dir previewer
+local -a editor_cmd
+
+previewer="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/functions/fzf-preview.sh"
+
+zle -I
+out=$(fd --type f --hidden --max-depth 6 \
   --exclude .git --exclude node_modules --exclude .tmux \
   --exclude __pycache__ --exclude .cache --exclude target \
   --exclude dist --exclude build --exclude .venv \
@@ -10,10 +15,44 @@ file=$(fd --type f --hidden --max-depth 6 \
     --border \
     --prompt " file  " \
     --border-label " edit (global) " \
+    --header $'ENTER: open | Alt-c: cd to dir | Ctrl-y: copy path\nAlt-.: preview | Alt-,: full preview' \
+    --expect=enter,alt-c \
+    --bind 'ctrl-y:execute-silent(
+      if command -v pbcopy >/dev/null 2>&1; then
+        printf %s {} | pbcopy
+      elif command -v wl-copy >/dev/null 2>&1; then
+        printf %s {} | wl-copy
+      elif command -v xclip >/dev/null 2>&1; then
+        printf %s {} | xclip -selection clipboard
+      elif command -v xsel >/dev/null 2>&1; then
+        printf %s {} | xsel --clipboard --input
+      fi
+    )' \
+    --bind 'alt-.:toggle-preview' \
+    --bind 'alt-,:change-preview-window(right,50%,wrap|up,99%,wrap,border-bottom)' \
     --color "bg:-1,bg+:-1,gutter:-1,border:-1,fg:#cdd6f4,fg+:#cdd6f4,hl:#f38ba8,hl+:#f38ba8,info:#89b4fa,marker:#f9e2af,pointer:#f5c2e7,prompt:#89b4fa,header:#a6adc8" \
-    --preview 'bat --color=always --style=plain {} 2>/dev/null || cat {}' \
-    --preview-window 'right,40%') || return
+    --preview "$previewer {}" \
+    --preview-window 'right,50%,wrap') || { zle reset-prompt; return }
 
-zle -I
-${EDITOR:-nvim} "$file"
+if [[ "$out" == *$'\n'* ]]; then
+  key=${out%%$'\n'*}
+  file=${out#*$'\n'}
+else
+  key=enter
+  file=$out
+fi
+
+[[ -n "$file" ]] || { zle reset-prompt; return }
+
+case "$key" in
+  alt-c)
+    dir=$(dirname -- "$file")
+    [[ -d "$dir" ]] && builtin cd -- "$dir"
+    ;;
+  *)
+    editor_cmd=(${=EDITOR:-nvim})
+    "${editor_cmd[@]}" -- "$file" < "${TTY:-/dev/tty}" > "${TTY:-/dev/tty}" 2>&1
+    ;;
+esac
+
 zle reset-prompt
