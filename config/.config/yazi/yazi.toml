@@ -20,6 +20,9 @@ file-manager = [
   { run = "open -R %s1", desc = "Reveal in file manager", for = "macos" },
   { run = "explorer /select,%s1", desc = "Reveal in file manager", for = "windows", orphan = true },
 ]
+reveal = [
+  { run = "clear; exiftool %s1; echo 'Press enter to exit'; read _", desc = "Show EXIF", for = "unix", block = true },
+]
 
 [open]
 prepend_rules = [
