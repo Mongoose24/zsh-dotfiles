@@ -23,9 +23,13 @@ file-manager = [
 reveal = [
   { run = "clear; exiftool %s1; echo 'Press enter to exit'; read _", desc = "Show EXIF", for = "unix", block = true },
 ]
+csv = [
+  { run = "csvlens %s1", desc = "csvlens", for = "unix", block = true },
+]
 
 [open]
 prepend_rules = [
+  { url = "*.csv", use = [ "csv", "edit", "open", "file-manager", "reveal" ] },
   { url = "*/", use = [ "edit", "open", "file-manager", "reveal" ] },
   { mime = "text/*", use = [ "edit", "open", "file-manager", "reveal" ] },
   { mime = "application/{json,ndjson,javascript,wine-extension-ini}", use = [ "edit", "open", "file-manager", "reveal" ] },
@@ -33,7 +37,7 @@ prepend_rules = [
 ]
 
 [[plugin.prepend_previewers]]
-url = "*.{md,markdown,mdown,mkd,mkdn,mdx}"
+url = "*.{txt,md,markdown,mdown,mkd,mkdn,mdx,json,jsonc,toml,yaml,yml,css,html,js,ts,sh,py,rs,lua,conf,ini,log}"
 run = "leaf"
 
 [[plugin.prepend_fetchers]]
