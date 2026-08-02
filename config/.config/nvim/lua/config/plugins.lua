@@ -11,11 +11,6 @@ local required_plugins = {
   "telescope.nvim",
   "telescope-ui-select.nvim",
   "telescope-fzf-native.nvim",
-  "fidget.nvim",
-  "nvim-lspconfig",
-  "mason.nvim",
-  "mason-lspconfig.nvim",
-  "mason-tool-installer.nvim",
   "conform.nvim",
   "LuaSnip",
   "blink.cmp",
@@ -40,7 +35,6 @@ end
 require("plugins.ui")
 require("plugins.undotree")
 require("plugins.telescope")
-require("plugins.lsp")
 require("plugins.formatting")
 require("plugins.completion")
 require("plugins.treesitter")

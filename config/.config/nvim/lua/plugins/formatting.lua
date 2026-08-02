@@ -6,7 +6,7 @@ require("conform").setup({
       return { timeout_ms = 500 }
     end
 end,
-  default_format_opts = { lsp_format = "fallback" },
+  default_format_opts = { lsp_format = "never" },
   formatters_by_ft = {},
 })
 
