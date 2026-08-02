@@ -11,26 +11,14 @@ vim.keymap.set("x", "<LeftRelease>", '<LeftRelease>"+y', {
   desc = "Copy mouse selection to system clipboard",
 })
 
-local function exit_insert_mode()
-  local insert_col = vim.fn.col(".")
-  local line_end_col = vim.fn.col("$")
-
-  vim.cmd("stopinsert")
-
-  if insert_col > 1 and insert_col < line_end_col then
-    vim.cmd("normal! l")
-  end
-end
-
-vim.keymap.set("n", "<M-a>", "a", { desc = "Append in Insert mode" })
-vim.keymap.set("i", "<M-a>", exit_insert_mode, { desc = "Return to Normal mode" })
-vim.keymap.set("i", "<Esc>", exit_insert_mode, { desc = "Return to Normal mode" })
+vim.keymap.set("n", "<M-a>", "i", { desc = "Enter Insert mode" })
+vim.keymap.set("i", "<M-a>", "<Esc>", { desc = "Return to Normal mode" })
 
 local function reject_arrow_key()
   vim.api.nvim_echo({ { "No arrows for you! Use h, j, k, or l.", "WarningMsg" } }, false, {})
 end
 
-for _, mode in ipairs({ "n", "v", "i" }) do
+for _, mode in ipairs({ "n", "v" }) do
   for _, key in ipairs({ "<Left>", "<Down>", "<Up>", "<Right>" }) do
     vim.keymap.set(mode, key, reject_arrow_key, { desc = "Arrow keys disabled" })
   end

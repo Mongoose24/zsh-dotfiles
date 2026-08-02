@@ -19,27 +19,14 @@ sudo apt-get install -y \
 echo "==> INSTALLING LEAF..."
 curl -fsSL https://raw.githubusercontent.com/RivoLink/leaf/main/scripts/install.sh | sh
 
+echo "==> INSTALLING PACKER FOR NVIM..."
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+
 # checking if fzf needs extra setup
 if [ -d /usr/share/doc/fzf/examples ] && [ ! -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
     sudo touch /usr/share/doc/fzf/examples/key-bindings.zsh
     sudo touch /usr/share/doc/fzf/examples/completion.zsh
-fi
-
-echo "==> INSTALLING FASTFETCH..."
-if ! apt-cache show fastfetch &>/dev/null; then
-    if command -v add-apt-repository &>/dev/null && grep -q "Ubuntu" /etc/os-release; then
-        sudo apt-get install -y software-properties-common
-        sudo add-apt-repository -y ppa:zhangsongcui3371/fastfetch
-        sudo apt-get update -qq
-        sudo apt-get install -y fastfetch
-    else
-        FF_VERSION=$(curl -s https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-        curl -Lo /tmp/fastfetch.deb "https://github.com/fastfetch-cli/fastfetch/releases/download/${FF_VERSION}/fastfetch-linux-amd64.deb"
-        sudo dpkg -i /tmp/fastfetch.deb
-        rm /tmp/fastfetch.deb
-    fi
-else
-    sudo apt-get install -y fastfetch
 fi
 
 echo "==> INSTALLING ZOXIDE..."

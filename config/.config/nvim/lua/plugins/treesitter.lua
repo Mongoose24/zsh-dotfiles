@@ -14,6 +14,7 @@ local parsers = {
 
 local treesitter = require("nvim-treesitter")
 treesitter.install(parsers)
+vim.treesitter.language.register("bash", "sh")
 
 local function attach(buf, language)
   if not vim.treesitter.language.add(language) then
