@@ -1,5 +1,3 @@
-so now i am making an an an an an an  edit
-
 # Neovim Configuration Guide
 
 This directory contains a modular Neovim configuration based on kickstart.nvim.
@@ -22,8 +20,11 @@ This directory contains a modular Neovim configuration based on kickstart.nvim.
 
 ## Where to Make Changes
 
-
- in `lua/config/pack.lua`, then configure it in a focused file under `lua/plugins/`.
+- Change editor behavior or defaults in `lua/config/options.lua`.
+- Add general shortcuts in `lua/config/keymaps.lua`.
+- Add general autocommands in `lua/config/autocmds.lua`.
+- Change an existing plugin in its matching file under `lua/plugins/`.
+- Add a new plugin in `lua/config/pack.lua`, then configure it in a focused file under `lua/plugins/`.
 - Add or configure a language server in `lua/plugins/lsp.lua`.
 - Add formatter behavior in `lua/plugins/formatting.lua`.
 - Add completion or snippet behavior in `lua/plugins/completion.lua`.
@@ -44,25 +45,6 @@ This directory contains a modular Neovim configuration based on kickstart.nvim.
 9. Avoid adding tutorial or explanatory comment blocks. Use short comments only when a setting is non-obvious.
 
 ## Packer Commands
-Use these commands inside Neovim:
-
-UUUUse these comUse these commands inside Neovim:
-Use these commands inside Neovim:
-Use these commands inside Neovim:
-Use these commands inside Neovim:
-Use these commands inside Neovim:
-Use these commands inside Neovim:
-Use these commands inside Neovim:
-mands inside Neovim:
-se these commands inside Neovim:
-se these commands inside Neovim:
-se these commands inside Neovim:
-Use these commands inside Neovim:
-Use these commands inside Neovim:
-Use these commands inside Neovim:
-
-Use these commands inside Neovim:
-Use these commands inside Neovim:
 
 Use these commands inside Neovim:
 
@@ -87,5 +69,3 @@ For a clean interactive check:
 ```
 
 Useful checks include opening a Lua file, confirming completion and diagnostics work, testing `<leader>sf` for Telescope file search, and checking that the Catppuccin background remains transparent.
-
-TEST EDIT 1
