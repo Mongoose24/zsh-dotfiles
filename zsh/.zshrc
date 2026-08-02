@@ -40,5 +40,5 @@ clear-keep-buffer() {
 zle -N clear-keep-buffer
 bindkey '^Xl' clear-keep-buffer
 
-export EDITOR=nano
-export VISUAL=nano
+export EDITOR=nvim
+export VISUAL=nvim

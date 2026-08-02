@@ -1,3 +1,20 @@
+# Disable arrow-key navigation so Vim motions become the only navigation keys.
+[[mgr.prepend_keymap]]
+on = "<Up>"
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on = "<Down>"
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on = "<Left>"
+run = "noop"
+
+[[mgr.prepend_keymap]]
+on = "<Right>"
+run = "noop"
+
 [[mgr.prepend_keymap]]
 on = "N"
 run = "shell 'nano \"$@\"' --block --confirm"

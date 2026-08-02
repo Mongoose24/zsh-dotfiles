@@ -44,7 +44,7 @@ theme = "custom-catppuccin.toml"
 # editor = 'code -g {$path}:{$line}'
 #
 # Priority: --editor flag > LEAF_EDITOR > this setting > nano (notepad on Windows)
-# editor = "nano"
+editor = "nvim"
 
 # Maximum content width (number of columns)
 # Limits how wide the rendered content can be.
