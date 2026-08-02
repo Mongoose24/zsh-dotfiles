@@ -1,95 +1,90 @@
-require("guess-indent").setup({})
+return {
+	{
+		"folke/which-key.nvim",
+		opts = {
+			delay = 0,
+			icons = { mappings = vim.g.have_nerd_font },
+			spec = {
+				{ "<leader>s", group = "Search", mode = { "n", "v" } },
+				{ "<leader>t", group = "Toggle" },
+				{ "gr", group = "LSP actions", mode = "n" },
+			},
+		},
+	},
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		priority = 1000,
+		config = function()
+			require("catppuccin").setup({
+				flavour = "mocha",
+				transparent_background = true,
+				float = { transparent = true, solid = false },
+				lsp_styles = {
+					virtual_text = {
+						errors = { "italic" },
+						hints = { "italic" },
+						warnings = { "italic" },
+						information = { "italic" },
+					},
+				},
+				integrations = {
+					fidget = true,
+					mason = true,
+					telescope = { enabled = true },
+					which_key = true,
+				},
+			})
+			vim.cmd.colorscheme("catppuccin")
+		end,
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "catppuccin/nvim" },
+		config = function()
+			local catppuccin_colors = require("catppuccin.palettes").get_palette("mocha")
+			local lualine_theme = require("catppuccin.utils.lualine")("mocha")
 
-require("gitsigns").setup({
-  signs = {
-    add = { text = "+" },
-    change = { text = "~" },
-    delete = { text = "_" },
-    topdelete = { text = "‾" },
-    changedelete = { text = "~" },
-  },
-})
+			for _, mode in ipairs({ "normal", "insert", "terminal", "command", "visual", "replace", "inactive" }) do
+				for _, section in ipairs({ "b", "c" }) do
+					if lualine_theme[mode] and lualine_theme[mode][section] then
+						lualine_theme[mode][section].bg = catppuccin_colors.mantle
+					end
+				end
+			end
 
-require("which-key").setup({
-  delay = 0,
-  icons = { mappings = vim.g.have_nerd_font },
-  spec = {
-    { "<leader>s", group = "Search", mode = { "n", "v" } },
-    { "<leader>t", group = "Toggle" },
-    { "<leader>h", group = "Git hunk", mode = { "n", "v" } },
-    { "gr", group = "LSP actions", mode = { "n" } },
-  },
-})
+			local function icon(glyph)
+				return vim.g.have_nerd_font and glyph or nil
+			end
 
-require("catppuccin").setup({
-  flavour = "mocha",
-  transparent_background = true,
-  float = { transparent = true, solid = false },
-  integrations = {
-    fidget = true,
-    mason = true,
-    native_lsp = {
-      enabled = true,
-      virtual_text = {
-        errors = { "italic" },
-        hints = { "italic" },
-        warnings = { "italic" },
-        information = { "italic" },
-      },
-    },
-    lualine = {},
-    telescope = { enabled = true },
-    which_key = true,
-  },
-})
-vim.cmd.colorscheme("catppuccin")
+			local diff_symbols = vim.g.have_nerd_font and { added = " ", modified = " ", removed = " " }
+				or { added = "+ ", modified = "~ ", removed = "- " }
 
-require("todo-comments").setup({ signs = false })
-
-if vim.g.have_nerd_font then
-  require("mini.icons").setup()
-  MiniIcons.mock_nvim_web_devicons()
-end
-
-require("mini.ai").setup({
-  mappings = { around_next = "aa", inside_next = "ii" },
-  n_lines = 500,
-})
-require("mini.surround").setup()
-
-local catppuccin_colors = require("catppuccin.palettes").get_palette("mocha")
-local lualine_theme = require("catppuccin.utils.lualine")("mocha")
-
-for _, mode in ipairs({ "normal", "insert", "terminal", "command", "visual", "replace", "inactive" }) do
-  for _, section in ipairs({ "b", "c" }) do
-    if lualine_theme[mode] and lualine_theme[mode][section] then
-      lualine_theme[mode][section].bg = catppuccin_colors.mantle
-    end
-  end
-end
-
-require("lualine").setup({
-  options = {
-    theme = lualine_theme,
-    icons_enabled = vim.g.have_nerd_font,
-    component_separators = "",
-    section_separators = "",
-    globalstatus = true,
-  },
-  sections = {
-    lualine_a = { { "mode", icon = "" } },
-    lualine_b = {
-      { "branch", icon = "" },
-      { "diff", symbols = { added = " ", modified = " ", removed = " " } },
-      "diagnostics",
-    },
-    lualine_c = { { "filename", path = 1 } },
-    lualine_x = {
-      { "encoding", icon = "󰈙" },
-      { "fileformat", icon = "" },
-      "filetype",
-    },
-    lualine_y = { { "progress", icon = "󰦗" } },
-    lualine_z = { { "location", icon = "󰍎" } },
-  },
-})
+			require("lualine").setup({
+				options = {
+					theme = lualine_theme,
+					icons_enabled = vim.g.have_nerd_font,
+					component_separators = "",
+					section_separators = "",
+					globalstatus = true,
+				},
+				sections = {
+					lualine_a = { { "mode", icon = icon("") } },
+					lualine_b = {
+						{ "branch", icon = icon("") },
+						{ "diff", symbols = diff_symbols },
+						"diagnostics",
+					},
+					lualine_c = { { "filename", path = 1 } },
+					lualine_x = {
+						{ "encoding", icon = icon("󰈙") },
+						{ "fileformat", icon = icon("") },
+						"filetype",
+					},
+					lualine_y = { { "progress", icon = icon("󰦗") } },
+					lualine_z = { { "location", icon = icon("󰍎") } },
+				},
+			})
+		end,
+	},
+}

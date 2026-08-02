@@ -2,7 +2,7 @@ vim.loader.enable()
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = vim.env.NVIM_NERD_FONT ~= "0"
 
 vim.opt.termguicolors = true
 vim.opt.guicursor = ""
@@ -13,7 +13,6 @@ vim.opt.showmode = false
 vim.opt.breakindent = true
 vim.opt.wrap = true
 vim.opt.linebreak = true
-vim.opt.undofile = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.smartindent = true
@@ -29,46 +28,33 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.confirm = true
 
-vim.opt.swapfile = false
+local state_dir = vim.fn.stdpath("state")
+local swap_dir = state_dir .. "/swap"
+local undo_dir = state_dir .. "/undo"
+vim.fn.mkdir(swap_dir, "p")
+vim.fn.mkdir(undo_dir, "p")
+
+vim.opt.directory = { swap_dir .. "//" }
+vim.opt.swapfile = true
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME").."/.vim/undodir"
+vim.opt.undodir = undo_dir
 vim.opt.undofile = true
 
+local tools = require("config.tools")
 local system = vim.uv.os_uname().sysname
-local has_wayland_clipboard = vim.fn.executable("wl-copy") == 1
-  and vim.fn.executable("wl-paste") == 1
-local has_macos_clipboard = vim.fn.executable("pbcopy") == 1
-  and vim.fn.executable("pbpaste") == 1
+local has_local_clipboard = false
 
-if system == "Darwin" and has_macos_clipboard then
-  vim.g.clipboard = {
-    name = "macOS clipboard",
-    copy = {
-      ["+"] = { "pbcopy" },
-      ["*"] = { "pbcopy" },
-    },
-    paste = {
-      ["+"] = { "pbpaste" },
-      ["*"] = { "pbpaste" },
-    },
-    cache_enabled = 0,
-  }
-elseif system == "Linux"
-  and (vim.env.WAYLAND_DISPLAY or vim.env.XDG_SESSION_TYPE == "wayland")
-  and has_wayland_clipboard
-then
-  vim.g.clipboard = {
-    name = "wl-clipboard",
-    copy = {
-      ["+"] = { "wl-copy", "--type", "text/plain" },
-      ["*"] = { "wl-copy", "--primary", "--type", "text/plain" },
-    },
-    paste = {
-      ["+"] = { "wl-paste", "--no-newline" },
-      ["*"] = { "wl-paste", "--no-newline", "--primary" },
-    },
-    cache_enabled = 0,
-  }
+if system == "Darwin" then
+	has_local_clipboard = tools.executable("pbcopy") and tools.executable("pbpaste")
+elseif system == "Linux" then
+	if vim.env.WAYLAND_DISPLAY and tools.executable("wl-copy") and tools.executable("wl-paste") then
+		has_local_clipboard = true
+	elseif vim.env.DISPLAY and (tools.executable("xclip") or tools.executable("xsel")) then
+		has_local_clipboard = true
+	end
 end
 
-vim.opt.clipboard = "unnamedplus"
+-- Keep the option empty on remote/headless hosts so Neovim can use OSC 52.
+if has_local_clipboard then
+	vim.opt.clipboard = "unnamedplus"
+end
