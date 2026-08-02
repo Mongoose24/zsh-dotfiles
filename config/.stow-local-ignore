@@ -1,8 +1,2 @@
-# micro — installed by package manager, not stow
-\.config/micro/syntax
-\.config/micro/colorschemes
-\.config/micro/buffers
-\.config/micro/backups
-
-# nanorc — path-sensitive, written locally by install script
-\.config/nano/nanorc
+# Neovim plugin lockfiles — machine-local
+\.config/nvim/.*-lock\.json

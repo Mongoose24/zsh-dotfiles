@@ -1,12 +1,9 @@
 CLAUDE.md
+AGENT.md
 .codex/
 .claude/
 .vibe/
 .env
 
-# micro runtime dirs — written by micro, not tracked
-config/.config/micro/syntax/
-config/.config/micro/colorschemes/
-config/.config/micro/buffers/
-config/.config/micro/backups/
-config/.config/nano/nanorc
+# Neovim plugin lockfiles are machine-local
+config/.config/nvim/*-lock.json

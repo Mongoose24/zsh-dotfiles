@@ -14,14 +14,10 @@ sudo apt-get update -qq
 echo "==> INSTALLING CORE PACKAGES..."
 sudo apt-get install -y \
     sudo zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget tree htop jq \
-    chafa rsync micro tmux
+    chafa rsync tmux
 
 echo "==> INSTALLING LEAF..."
 curl -fsSL https://raw.githubusercontent.com/RivoLink/leaf/main/scripts/install.sh | sh
-
-echo "==> INSTALLING PACKER FOR NVIM..."
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 # checking if fzf needs extra setup
 if [ -d /usr/share/doc/fzf/examples ] && [ ! -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then

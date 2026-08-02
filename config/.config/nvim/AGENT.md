@@ -23,9 +23,9 @@ This is a modular, cross-platform Neovim configuration for macOS, Arch Linux, an
 - `lua/plugins/formatting.lua`: Conform, StyLua, and the manual format mapping.
 - `lua/plugins/completion.lua`: blink.cmp and LuaSnip.
 - `lua/plugins/treesitter.lua`: Parser list, installation, updates, and attachment.
-- `lazy-lock.json`: Reproducible plugin revisions; never edit it by hand.
+- `lazy-lock.json`: Machine-local plugin state; ignored by Git and GNU Stow and never edited by hand.
 
-The old Packer configuration, generated loader, and unrelated `nvim-pack-lock.json` were removed. Generated plugin code must not be committed because it can contain machine-specific paths.
+The old Packer configuration, generated loader, and unrelated `nvim-pack-lock.json` were removed. Generated plugin code and lockfiles must not be committed because they are machine-local.
 
 ## Platform Requirements
 
@@ -87,8 +87,8 @@ Add `wl-clipboard` on Wayland or `xclip`/`xsel` on X11. Distribution repositorie
 Inside Neovim:
 
 - `:Lazy`: inspect plugin state.
-- `:Lazy sync`: install, update, clean, and regenerate `lazy-lock.json`.
-- `:Lazy restore`: restore revisions from `lazy-lock.json`.
+- `:Lazy sync`: install, update, clean, and regenerate the machine-local `lazy-lock.json`.
+- `:Lazy restore`: restore revisions from the current machine's `lazy-lock.json`.
 - `:Mason`: inspect language tools.
 - `:MasonToolsInstall`: install declared non-LSP tools such as StyLua.
 - `:TSUpdate`: update installed Treesitter parsers after plugin updates.
@@ -108,7 +108,7 @@ Inside Neovim:
 - Treesitter parsers: `lua/plugins/treesitter.lua`
 - Theme/statusline: `lua/plugins/ui.lua`
 
-After changing plugins, run `:Lazy sync` and commit the resulting `lazy-lock.json` update.
+After changing plugins, run `:Lazy sync`. The resulting lockfile stays local and is intentionally neither committed nor stowed, so plugin revisions may differ between machines.
 
 ## Configuration Rules
 
@@ -117,7 +117,7 @@ After changing plugins, run `:Lazy sync` and commit the resulting `lazy-lock.jso
 3. Use `stdpath()` for data, state, cache, and config paths; never hardcode a username or Linux-only home path.
 4. Check optional executables before depending on native builds or OS helpers.
 5. Use named, cleared augroups so configuration can be re-sourced safely.
-6. Do not commit generated plugin loaders or plugin installation directories.
+6. Do not commit or stow plugin lockfiles, generated plugin loaders, or plugin installation directories.
 7. Preserve Space as the leader unless all leader mappings are intentionally migrated.
 8. Keep the Catppuccin background transparent unless explicitly changing the theme behavior.
 9. Prefer short comments only where behavior is non-obvious.

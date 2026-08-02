@@ -1,7 +1,0 @@
-syntax "glsl" "\.glsl$"
-color brightyellow "\<(void|float|vec2|vec3|vec4|mat2|mat3|mat4|int|bool|const|in|out|inout|uniform|struct|return|if|else|for|while)\>"
-color brightcyan "\<(sin|cos|tan|sqrt|abs|pow|min|max|mix|clamp|step|smoothstep|length|dot|cross|normalize|texture|floor|ceil|fract|mod)\>"
-color brightred ""[^"]*""
-color green "//.*$"
-color green start="/\*" end="\*/"
-color brightmagenta "\-?[0-9]+\.?[0-9]*"
