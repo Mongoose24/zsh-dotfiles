@@ -1,11 +1,8 @@
 alias make="make -j`nproc`"
-alias n="nano"
-alias m="micro"
-alias sn="sudo nano"
 alias sm="sudo micro"
 alias rm="trash -v"
 alias v="nvim"
-alias sv="sudo nvm"
+alias sv="sudo nvim"
 alias c="clear"
 alias x="exit"
 alias zc="cd && clear"
@@ -20,14 +17,14 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias l="eza --icons --color=always --group-directories-first -1" 
-alias zshrc="nano ~/.zshrc"
-alias custom="nano ~/.oh-my-zsh/custom/custom.zsh"
-alias al="nano ~/.oh-my-zsh/custom/aliases.zsh"
-alias lzsh="nano ~/.oh-my-zsh/custom/local-functions/local-zsh.zsh"
+alias zshrc="$EDITOR ~/.zshrc"
+alias custom="$EDITOR ~/.oh-my-zsh/custom/custom.zsh"
+alias al="$EDITOR ~/.oh-my-zsh/custom/aliases.zsh"
+alias lzsh="$EDITOR ~/.oh-my-zsh/custom/local-functions/local-zsh.zsh"
 alias lfuncs="cd ~/.oh-my-zsh/custom/local-functions && l"
 alias funcs="cd ~/zsh-dotfiles/zsh/.oh-my-zsh/custom/functions && l"
 alias zdot="cd ~/zsh-dotfiles && l"
-alias sshconf="nano ~/.ssh/config"
+alias sshconf="$EDITOR ~/.ssh/config"
 alias szs='source ~/.zshrc'
 alias lgit='lazygit'
 alias duno='dust --no-percent-bars'
@@ -86,4 +83,4 @@ fi
 alias nvidia="watch -n 1 nvidia-smi"
 
 # Ghostty config
-alias ghostty-config="nano ~/.config/ghostty/config"
+alias ghostty-config="$EDITOR ~/.config/ghostty/config"
