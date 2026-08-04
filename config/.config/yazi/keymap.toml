@@ -16,11 +16,6 @@ on = "<Right>"
 run = "noop"
 
 [[mgr.prepend_keymap]]
-on = "N"
-run = "shell 'nano \"$@\"' --block --confirm"
-desc = "Open in nano"
-
-[[mgr.prepend_keymap]]
 on = "L"
 run = "shell 'leaf \"$@\"' --block --confirm"
 desc = "Open in Leaf"
@@ -36,7 +31,7 @@ run = "shell 'if [[ \"$OSTYPE\" == \"darwin\"* ]]; then open -R \"$@\"; else dol
 desc = "Reveal in file manager"
 
 [[mgr.prepend_keymap]]
-on = "z"
+on = "Z"
 run = '''shell 'fzf --preview "cat {}" --preview-window right:50%:wrap --bind "n:execute(nano {})"' --block'''
 desc = "fzf file finder"
 
