@@ -64,7 +64,7 @@ watch = true
 # Code files (py, sh, css, html...) get syntax highlighting.
 # Text files (txt, csv, log...) are rendered as plain Markdown.
 # Default: [] (Markdown only)
-extras = ["txt", "mdx", "json", "jsonc", "toml", "yaml", "yml", "css", "html", "js", "ts", "sh", "py", "rs", "lua", "conf", "ini", "log", "csv"]
+extras = ["txt", "mdx", "json", "jsonc", "toml", "yaml", "yml", "css", "html", "js", "ts", "sh", "py", "rs", "lua", "conf", "ini", "log"]
 
 # Show line numbers inside fenced code blocks
 # Only affects code block gutters, the main document line numbers are independent.

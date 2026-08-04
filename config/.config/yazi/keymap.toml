@@ -21,6 +21,11 @@ run = "shell 'nano \"$@\"' --block --confirm"
 desc = "Open in nano"
 
 [[mgr.prepend_keymap]]
+on = "L"
+run = "shell 'leaf \"$@\"' --block --confirm"
+desc = "Open in Leaf"
+
+[[mgr.prepend_keymap]]
 on = "O"
 run = "shell 'if [[ \"$OSTYPE\" == \"darwin\"* ]]; then open \"$@\"; else xdg-open \"$@\"; fi'"
 desc = "Open with default app"

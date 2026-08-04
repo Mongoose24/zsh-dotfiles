@@ -9,6 +9,9 @@ edit = [
   { run = "code %s",               desc = "code",         for = "windows", orphan = true },
   { run = "code -w %s",            desc = "code (block)", for = "windows", block = true },
 ]
+leaf = [
+  { run = "leaf %s1", desc = "Open with Leaf", for = "unix", block = true },
+]
 open = [
   { run = "xdg-open %s1",    desc = "Open in default app", for = "linux" },
   { run = "open %s",         desc = "Open in default app", for = "macos" },
@@ -29,6 +32,7 @@ csv = [
 
 [open]
 prepend_rules = [
+  { url = "*.{txt,mdx,json,jsonc,toml,yaml,yml,css,html,js,ts,sh,py,rs,lua,conf,ini,log}", use = [ "edit", "leaf", "open", "file-manager", "reveal" ] },
   { url = "*.csv", use = [ "csv", "edit", "open", "file-manager", "reveal" ] },
   { url = "*/", use = [ "edit", "open", "file-manager", "reveal" ] },
   { mime = "text/*", use = [ "edit", "open", "file-manager", "reveal" ] },
