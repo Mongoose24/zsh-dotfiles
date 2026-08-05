@@ -31,8 +31,8 @@ fi
 echo "==> REFRESHING PACKAGE METADATA..."
 as_root dnf makecache --refresh -q
 
-# FFmpeg is not distributed by Fedora because of patent/licensing restrictions.
-# RPM Fusion Free supplies the Fedora-compatible package.
+# Fedora's ffmpeg-free is limited by patent/licensing restrictions. Replace it
+# (when preinstalled) with RPM Fusion Free's full FFmpeg package.
 echo "==> ENABLING RPM FUSION FREE (FOR FFMPEG)..."
 if ! rpm -q rpmfusion-free-release &>/dev/null; then
     as_root dnf install -y \
@@ -40,9 +40,12 @@ if ! rpm -q rpmfusion-free-release &>/dev/null; then
 fi
 as_root dnf makecache --refresh -q
 
+echo "==> INSTALLING FULL FFMPEG FROM RPM FUSION..."
+as_root dnf install -y --allowerasing ffmpeg
+
 echo "==> INSTALLING CORE PACKAGES..."
 as_root dnf install -y \
-    sudo zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget2 tree htop jq \
+    sudo zsh git curl stow fzf ripgrep poppler-utils file unzip wget2 tree htop jq \
     chafa rsync tmux neovim zoxide bat fd-find du-dust atuin
 
 # Fedora ships GNU Wget 2 as wget2. Keep the familiar command name used by
