@@ -1,3 +1,6 @@
+export EDITOR=nvim
+export VISUAL=nvim
+
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export PATH="$HOME/.local/bin:$PATH"
@@ -39,6 +42,3 @@ clear-keep-buffer() {
 }
 zle -N clear-keep-buffer
 bindkey '^Xl' clear-keep-buffer
-
-export EDITOR=nvim
-export VISUAL=nvim
