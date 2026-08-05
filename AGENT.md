@@ -9,8 +9,7 @@ GNU Stow-based dotfiles managed across Debian/Arch/macOS machines and Proxmox LX
 Current packages:
 - `zsh/` — `.zshrc` + all Oh My Zsh custom files (aliases, functions, plugins)
 - `tmux/` — `.??` tmux config
-- `config/` — `.config/` entries (atuin, nano syntax highlighting, yazi)
-- `nano/` — placeholder package (currently empty, reserved for nano dotfiles)
+- `config/` — `.config/` entries (atuin, syntax highlighting, yazi)
 
 ## Applying changes
 
