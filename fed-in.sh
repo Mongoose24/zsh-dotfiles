@@ -45,7 +45,7 @@ as_root dnf install -y --allowerasing ffmpeg
 
 echo "==> INSTALLING CORE PACKAGES..."
 as_root dnf install -y \
-    sudo zsh git curl stow fzf ripgrep poppler-utils file unzip wget2 tree htop jq \
+    sudo zsh git curl stow fzf ripgrep poppler-utils file unzip wget2 tree htop jq eza \
     chafa rsync tmux neovim zoxide bat fd-find du-dust atuin
 
 # Fedora ships GNU Wget 2 as wget2. Keep the familiar command name used by

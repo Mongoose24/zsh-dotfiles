@@ -11,9 +11,19 @@ if ! command -v sudo &>/dev/null; then
 fi
 sudo apt-get update -qq
 
+echo "==> CONFIGURING EZA REPOSITORY..."
+sudo apt-get install -y gpg
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | \
+    sudo gpg --dearmor --yes -o /etc/apt/keyrings/gierens.gpg
+echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | \
+    sudo tee /etc/apt/sources.list.d/gierens.list >/dev/null
+sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
+sudo apt-get update -qq
+
 echo "==> INSTALLING CORE PACKAGES..."
 sudo apt-get install -y \
-    sudo zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget tree htop jq \
+    sudo zsh git curl stow fzf ripgrep poppler-utils ffmpeg file unzip wget tree htop jq eza \
     chafa rsync tmux neovim
 
 echo "==> INSTALLING LEAF..."
