@@ -57,4 +57,8 @@ end
 -- Keep the option empty on remote/headless hosts so Neovim can use OSC 52.
 if has_local_clipboard then
 	vim.opt.clipboard = "unnamedplus"
+
+	vim.keymap.set({ "n", "v" }, "d", '"_d')
+	vim.keymap.set({ "n", "v" }, "c", '"_c')
+  	vim.keymap.set({ "n", "v" }, "x", '"_x')
 end
