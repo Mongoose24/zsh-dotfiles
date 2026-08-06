@@ -5,7 +5,7 @@ linemode = "size"
 [opener]
 edit = [
   { run = "${EDITOR:-vi} %s",      desc = "$EDITOR",      for = "unix",    block = true },
-  { run = "sudo ${EDITOR:-vi} %s", desc = "sudo $EDITOR", for = "unix",    block = true },
+  { run = "sudoedit %s", desc = "sudoedit", for = "unix",    block = true },
   { run = "code %s",               desc = "code",         for = "windows", orphan = true },
   { run = "code -w %s",            desc = "code (block)", for = "windows", block = true },
 ]
