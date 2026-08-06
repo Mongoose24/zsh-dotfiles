@@ -40,6 +40,11 @@ vim.opt.backup = false
 vim.opt.undodir = undo_dir
 vim.opt.undofile = true
 
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+
 local tools = require("config.tools")
 local system = vim.uv.os_uname().sysname
 local has_local_clipboard = false

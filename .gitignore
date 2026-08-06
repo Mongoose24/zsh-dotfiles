@@ -4,6 +4,7 @@ AGENT.md
 .claude/
 .vibe/
 .env
+.DS_Store
 
 # Neovim plugin lockfiles are machine-local
 config/.config/nvim/*-lock.json
